@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import TypeProduct from './TypeProduct';
 import { Config } from '../../config/connection';
 import numeral from 'numeral';
@@ -7,6 +7,7 @@ import { LineChart } from './chartPrice';
 import axios from 'axios';
 import SliderPattern from '../Pattern/sliderPattern';
 import Recommended from './Recommended';
+import ProductSlider from '../Products/ProductSlider';
 function HomePage() {
   const api = Config.urlApi;
 
@@ -32,14 +33,16 @@ function HomePage() {
     } catch (error) {
       setItemoPtion([])
     }
-
   }
+  const navigate = useNavigate();
+  const handlePattern = () => {
+    navigate('/pattern');
+  }
+
   useEffect(() => {
     fecthData()
     fetchOption();
   }, [])
-
-
 
   return (
     <>
@@ -48,12 +51,12 @@ function HomePage() {
           <TypeProduct />
         </div>
       </div>
-      <div id="trending-items" class="section-container pt-4">
-        <div class="container section">
+      <div id="trending-items" className="section-container pt-4">
+        <div className="px-4 section">
           <div className="row ">
             <div className="col-lg-6 col-md-6 col-sm-6 mb-2">
-              <div className="panel panel-inverse rounded-start rounded-5 rounded-bottom">
-                <div className="panel-heading bg-viengkham text-center">
+              <div className="panel panel-inverse rounded-start  rounded-5 rounded-bottom">
+                <div className="panel-heading bg-viengkham text-center border-5 border-gold border-bottom">
                   <h4 className="panel-title fs-18px">ລາຄາຄຳປະຈຳວັນ</h4>
                 </div>
                 <div className="panel-body">
@@ -63,8 +66,8 @@ function HomePage() {
             </div>
             <div className="col-lg-6 col-md-6 col-sm-6 mb-2">
               {itemData.map((item, index) =>
-                <div className="panel panel-inverse rounded-start rounded-5 rounded-bottom" key={index}>
-                  <div className="panel-heading bg-viengkham text-center">
+                <div className="panel panel-inverse rounded-start rounded-5  rounded-bottom" key={index}>
+                  <div className="panel-heading bg-viengkham text-center border-5 border-gold border-bottom">
                     <h4 className="panel-title fs-18px">ລາຄາ {item.typeName} ວັນນີ້</h4>
                   </div>
                   <div className="panel-body">
@@ -85,52 +88,51 @@ function HomePage() {
 
             </div>
           </div>
-          <div class="text-center pt-2 pt-0">
-            <Link to={'/price'} class="section-btn fs-16px"><i class="fa fa-arrow-right "></i> ລາຄາຄຳຍ້ອນຫລັງ</Link>
+          <div className="text-center mt-0">
+            <Link to={'/price'} className="section-btn fs-16px"><i className="fa fa-arrow-right "></i> ລາຄາຄຳຍ້ອນຫລັງ</Link>
           </div>
         </div>
       </div>
 
-
-
-
       <div id="promotions" className="section-container bg-component">
-        <div class="section">
-          <div class="container">
-            <div class="section-titles"><span className='fs-16px'>** ສິນຄ້າແນະນຳ **</span> </div>
+        <div className="section">
+          <div className="container">
+            <div className="section-titles"><span className='fs-16px'>** ສິນຄ້າແນະນຳ **</span> </div>
             <Recommended />
 
-            <div class="text-center pt-5 pt-lg-0">
-              <Link to={'/recomend'} class="section-btn fs-18px"><i class="fa fa-arrow-right"></i> ເບີ່ງສິນຄ້າທັງໝົດ</Link>
+            <div className="text-center pt-0 pt-lg-0">
+              <Link to={'/recomend'} className="section-btn fs-18px"><i className="fa fa-arrow-right"></i> ເບີ່ງສິນຄ້າທັງໝົດ...</Link>
             </div>
           </div>
 
         </div>
       </div>
 
+      <div id="promotions" className="section-container bg-component p-0 ">
+        <div className="container mb-2">
+        <ProductSlider />
+        </div>
+      </div>
 
       <div id="promotions" className="section-container bg-viengkham p-0">
-        <div class="promotion promotion-lg " style={{ background: "url(./assets/img/vendor/1721383923210.jpeg) center 0px / cover no-repeat" }}>
+        <div className="promotion promotion-lg " style={{ background: "url(./assets/img/slider/shop-default/5.jpg) center 0px / cover no-repeat" }}>
 
-          <div class="promotion-caption promotion-caption-inverse">
-            <h4 class="promotion-title">iPhone 12</h4>
-            <div class="promotion-price"><small>from</small> $1,299.00</div>
-            <p class="promotion-desc">A big step for small.<br />A beloved design. Now with more to love.</p>
-            <a href="#" class="promotion-btn">View More</a>
+          <div className="promotion-caption promotion-caption-inverse">
+            <h4 className="promotion-title">iPhone 12</h4>
+            <p className="promotion-desc">A big step for small.<br />A beloved design. Now with more to love.</p>
           </div>
         </div>
-
       </div>
 
       <div id="promotions" className="section-container">
         <div className="container">
-          <h4 className="section-titles"><span>ພວກເຮົາມີ ລວດລາຍ ຫຼາຍແບບໃຫ້ທ່ານໄດ້ເລືອກ</span> </h4>
+          <h4 className="section-titles"><span role='button' onClick={() => handlePattern()}>ພວກເຮົາມີ ລວດລາຍ ຫຼາຍແບບໃຫ້ທ່ານໄດ້ເລືອກ</span> </h4>
           <SliderPattern />
         </div>
       </div>
 
-     
-      
+
+
     </>
   )
 }

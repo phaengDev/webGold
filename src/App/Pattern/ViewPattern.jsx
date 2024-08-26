@@ -45,8 +45,8 @@ const ViewPattern = ({ show, handleClose, data, url }) => {
                                 <h4 className="section-titles"><span>ຂໍ້ມູນຕິດຕໍ່</span></h4>
                                 <ul className="sidebar-social-list text-white">
                                     <li><a href="https://www.facebook.com/profile.php?id=100064645995670" target="_blank" className='text-white'><i className="fab fa-facebook"></i></a></li>
-                                    <li><a href="https://wa.me/02052160011?text=ສະບາຍດີ ຂ້ອຍສົນໃຈຄຳ ຂ້ອຍມາຈາກ ເວັບໄຊທ໌ເດີ ຂໍລາຍລະອຽດແດ່" target="_blank" className='text-white' rel="noopener noreferrer"><i class="fa-brands fa-whatsapp"></i></a></li>
-                                    <li><a href="#" className='text-white'><i class="fa-solid fa-envelope"/></a></li>
+                                    <li><a href="https://wa.me/02052160011?text=ສະບາຍດີ ຂ້ອຍສົນໃຈຄຳ ຂ້ອຍມາຈາກ ເວັບໄຊທ໌ເດີ ຂໍລາຍລະອຽດແດ່" target="_blank" className='text-white' rel="noopener noreferrer"><i className="fa-brands fa-whatsapp"></i></a></li>
+                                    <li><a href="#" className='text-white'><i className="fa-solid fa-envelope"/></a></li>
                                     <li><a href="#" className='text-white'><i className="fab fa-instagram"></i></a></li>
                                 </ul>
                                 <p className='p-3'>ຜູ້ທີ່ສົນໃຈສາມາດສອບຖາມລາຍລະອຽດໄດ້ຕະຫຼອດ 14 ຊົ່ວໂມງ

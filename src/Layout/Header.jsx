@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom';
-import { Config,Urlimage } from '../config/connection'
+import { Config,Urlimage } from '../config/connection';
 export default function Header() {
     const api = Config.urlApi;
     const img=Urlimage.url;
@@ -17,36 +17,42 @@ export default function Header() {
     useEffect(() => {
         fetchTile()
     })
-
+const [flag,setFlag]=useState(1)
   
+const chengeLanguage=(index)=>{
+    setFlag(index)
+}
     return (
         <>
             <div id="top-nav" className="top-nav ">
                 <div className="container">
                     <div className="collapse navbar-collapse">
-                        <ul className="nav navbar-nav">
-                            <li className="dropdown dropdown-hover">
-                                <a href="#" data-bs-toggle="dropdown"><img src="../assets/img/flag/flag-english.png" className="flag-img" alt /> English <b className="caret"></b></a>
-                                <ul className="dropdown-menu">
-                                    <li><a href="#" className="dropdown-item"><img src="../assets/img/flag/flag-english.png" className="flag-img" alt /> English</a></li>
-                                    <li><a href="#" className="dropdown-item"><img src="../assets/img/flag/flag-german.png" className="flag-img" alt /> German</a></li>
-                                    <li><a href="#" className="dropdown-item"><img src="../assets/img/flag/flag-spanish.png" className="flag-img" alt /> Spanish</a></li>
-                                    <li><a href="#" className="dropdown-item"><img src="../assets/img/flag/flag-french.png" className="flag-img" alt /> French</a></li>
-                                    <li><a href="#" className="dropdown-item"><img src="../assets/img/flag/flag-chinese.png" className="flag-img" alt /> Chinese</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="#">Customer Care</a></li>
-                            <li><a href="#">Order Tracker</a></li>
+                        
+                        <ul className="nav navbar-nav ">
+                            <li><a href="#"><i class="fa-solid fa-phone"/> : 020 95 555 609</a></li>
+                            <li><a href="#"><i class="fa-solid fa-phone"/> : 020 94 424 363</a></li>
+                            <li><a href="https://www.facebook.com/profile.php?id=100064645995670"><i class="fa-brands fa-facebook-f fs-5"/></a></li>
+                            <li><a href="#"><i class="fa-brands fa-square-whatsapp fs-5"/></a></li>
+                            <li><a href="#"><i className="fab fa-instagram fs-5"/></a></li>
+                            <li><a href="#"><i class="fa-solid fa-envelope fs-5"/></a></li>
+                            <li><a href="#"><i class="fa-brands fa-tiktok fs-5"/></a></li>
                         </ul>
                         <ul className="nav navbar-nav navbar-end">
-                            <li><a href="#">Career</a></li>
-                            <li><a href="#">Our Forum</a></li>
-                            <li><a href="#">Newsletter</a></li>
-                            <li><a href="#"><i className="fab fa-facebook-f f-s-14"></i></a></li>
-                            <li><a href="#"><i className="fab fa-twitter f-s-14"></i></a></li>
-                            <li><a href="#"><i className="fab fa-instagram f-s-14"></i></a></li>
-                            <li><a href="#"><i className="fab fa-dribbble f-s-14"></i></a></li>
-                            <li><a href="#"><i className="fab fa-google f-s-14"></i></a></li>
+                            <li><a href="#">Customer Care</a></li>
+                            <li><a href="#">Order Tracker</a></li>
+                            <li className="dropdown dropdown-hover">
+                                <a href="javascript:;" data-bs-toggle="dropdown">
+                                    {flag===1 ?(
+                                   <><img src="./assets/img/flag/flag-la.svg" className="flag-img" alt /> Laos </> 
+                                ):(
+                                    <><img src="../assets/img/flag/flag-english.svg" className="flag-img" alt /> English</>
+                                )}
+                                     <b className="caret"></b></a>
+                                <ul className="dropdown-menu">
+                                    <li><a href="javascript:;" onClick={()=>chengeLanguage(1)} className="dropdown-item"><img src="./assets/img/flag/flag-la.svg" className="flag-img" alt /> Laos</a></li>
+                                    <li><a href="javascript:;" onClick={()=>chengeLanguage(2)} className="dropdown-item"><img src="../assets/img/flag/flag-english.svg" className="flag-img" alt /> English</a></li>
+                                </ul>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -197,10 +203,10 @@ export default function Header() {
                                         <div className="cart-footer">
                                             <div className="row gx-2">
                                                 <div className="col-6">
-                                                    <a href="checkout_cart.html" className="btn btn-default btn-theme d-block">View Cart</a>
+                                                    <Link to={'/order'} className="btn btn-default btn-theme d-block">View Cart</Link>
                                                 </div>
                                                 <div className="col-6">
-                                                    <a href="checkout_cart.html" className="btn btn-dark btn-theme d-block">Checkout</a>
+                                                    <Link to={'/order'} className="btn btn-dark btn-theme d-block">Checkout</Link>
                                                 </div>
                                             </div>
                                         </div>

@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import PageHeader from '../../Layout/page-header'
 import { Link } from 'react-router-dom';
-import { Config } from '../../config/connection';
+import { Config,Urlimage } from '../../config/connection';
 import axios from 'axios';
 import numeral from 'numeral';
-import { Commet } from 'react-loading-indicators';
-import SliderType from '../Products/SliderType';
+import ViewPattern from '../Pattern/ViewPattern';
+import ViewGift from './ViewGift';
+import Loading from '../../Layout/Loading';
 function GiftMemory() {
 
     const api = Config.urlApi;
-  
+  const img=Urlimage.url;
     const [isloading, setIsLoading] = useState(true);
     const [itemGift, setItemGift] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
@@ -69,7 +70,22 @@ function GiftMemory() {
     };
     const chunkedProducts = chunkArray(itemPattern, 6);
   
-  
+     // ==================
+     const [show, setShow] = useState(false);
+     const [viewItem,setViewItem]=useState({})
+     const handleView=(data)=>{
+         setViewItem(data)
+         console.log(viewItem)
+         setShow(true)
+     }
+
+    //  ===================
+    const [showV, setShowV] = useState(false);
+    const [dataGift,setDataGift]=useState({})
+    const handleViewGift=(item)=>{
+      setDataGift(item)
+      setShowV(true)
+    }
   return (
     
     <>
@@ -84,19 +100,20 @@ function GiftMemory() {
           <div class="row gx-2 mb-0 mt-3">
             {isloading === true ? (
               <div className='col-sm-12 text-center'>
-                <Commet color="#e91717" size="large" text="ກຳລັງໂຫລດ..." textColor="#f12424" />
+                <Loading color="#e91717" size="large" text="ກຳລັງໂຫລດ..."  />
               </div>
             ) : (
               <>
                 {paginatedItems.map((val, index) =>
                   <div key={index} class="col-lg-2 col-md-4 col-sm-6 mb-2">
                     <div class="item item-thumbnail">
-                      <Link to={'/d-gift?d=' + val.gift_id}><img className="d-block w-100" src="./assets/img/pos/m-1.jpg" alt /></Link>
+                      <a href='javascript:;' onClick={()=>handleViewGift(val)}><img className="d-block w-100" src={`${img}gift/${val.gift_img}`} alt /></a>
                       <div class="item-info text-start">
                         <h4 class="item-title">
-                          <Link to={'/d-gift?d=' + val.gift_id}>{val.gift_name}</Link>
+                          <a href='javascript:;' onClick={()=>handleViewGift(val)}>{val.gift_name}</a>
                         </h4>
                         <p class="item-desc">{val.gift_text}</p>
+                        <div className="item-price">{numeral(val.gift_price).format('0,00') } kip</div>
                       </div>
                     </div>
                   </div>
@@ -134,7 +151,11 @@ function GiftMemory() {
         </div>
       </div>
 
-
+<ViewGift show={showV}
+item={dataGift}
+handleClose={()=>setShowV(false)}
+imgUrl={img}
+/>
 
 
       <div id="work" class="content" data-scrollview="true">
@@ -158,28 +179,19 @@ function GiftMemory() {
                       <div className="row row-space-10 gx-2">
                         {group.map((item, itemIndex) => (
                           <div className="col-lg-2 col-md-4 col-sm-6 mb-2">
-                            {/* <div className="item item-thumbnail">
-                              <Link to={'/pat-detail?d=' + item.pattern_id} className="item-image p-0">
-                                <img src="./assets/img/pos/m-4.jpg" className='w-100 ' alt />
-                                <div className="discount">{item.option_name}</div>
-                              </Link>
+                            <div className="item item-thumbnail">
+                              <a href='javascript:;' onClick={()=>handleView(item)} className="item-image p-0">
+                                <img src={`${img}pattern/${item.pattern_img}`} className='w-100 ' alt />
+                              </a>
                               <div className="item-info text-start">
                                 <h4 className="item-title">
-                                  <Link to={'/pat-detail?d=' + item.pattern_id}>{item.pattern_name}</Link>
+                                  <a href='javascript:;'>{item.pattern_name}</a>
                                 </h4>
-                                <p className="item-desc">{item.tile_name}</p>
+                                <p className="item-desc">{item.pattern_remart}</p>
                                 <div className="item-price">{numeral(item.pattern_pirce).format('0,00')} ₭</div>
                               </div>
-                            </div> */}
-                            <div className="item item-thumbnail work">
-                              <div class="image">
-                                <a href="#"><img className='d-block w-100' src="./assets/img/pos/m-1.jpg" alt="Work 1" /></a>
-                              </div>
-                              <div class="desc">
-                                <span class="desc-title">Aliquam molestie</span>
-                                <span class="desc-text">Lorem ipsum dolor sit amet</span>
-                              </div>
                             </div>
+
                           </div>
                         ))}
                         
@@ -194,9 +206,13 @@ function GiftMemory() {
           </div>
         </div>
       </div>
+      <ViewPattern
+                show={show}
+                handleClose={()=>setShow(false)}
+                data={viewItem}
+                url={img}
+                />
 
-
-<SliderType/>
       <div id="policy" class="section-container bg-component">
         <div class="container">
           <div class="row">

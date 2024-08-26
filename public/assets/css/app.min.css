@@ -17001,7 +17001,7 @@ a {
 }
 .top-nav {
   background: #101315;
-  z-index: 1015;
+  z-index: 3000;
   position: relative;
 }
 .top-nav:after,
@@ -18554,7 +18554,8 @@ a {
   text-decoration: none;
 }
 .item.item-thumbnail .item-image {
-  height: 130px;
+  /* height: 130px; */
+  height: '80%' !important;
   padding: 15px;
   line-height: 100px;
   text-align: center;
@@ -27956,3 +27957,4 @@ a {
     text-overflow: ellipsis;
     flex: 1
 }
+

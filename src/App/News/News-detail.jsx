@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom';
 import { Config, Urlimage } from '../../config/connection';
+import moment from 'moment';
 export default function NewsDetail() {
     const api = Config.urlApi;
     const img = Urlimage.url;
@@ -30,16 +31,25 @@ export default function NewsDetail() {
         }
     }
 
+
+    const [itemNew, setItemNew] = useState([]);
+    const fetchNewEvent = async () => {
+        try {
+            const response = await fetch(api + 'news/');
+            const jsonData = await response.json();
+            setItemNew(jsonData);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        } 
+    }
     useEffect(() => {
-        console.log(item)
+        fetchNewEvent()
         showEvent();
     }, [eventId])
     return (
         <>
-            <div id="content" className="content">
-
+            <div id="content" className="content bg-component">
                 <div className="container">
-
                     <div className="row gx-lg-5">
                         <div className="col-lg-9">
                             <div className="post-detail section-container">
@@ -65,10 +75,8 @@ export default function NewsDetail() {
 
                             </div>
 
-
                             <div className="section-container">
                                 <h4 className="section-titles"><span>All Comments (3)</span></h4>
-
                                 <ul className="comment-list">
                                     <li>
                                         <div className="comment-avatar">
@@ -205,6 +213,22 @@ export default function NewsDetail() {
 
 
                         <div className="col-lg-3">
+
+                        <div className="section-container">
+                                <h4 className="section-titles"><span>ລາຍການຂ່າວສານປະຈຳວັນ</span></h4>
+                                <ul className="sidebar-recent-post">
+                                    {itemNew.map((item,key)=>(
+                                    <li>
+                                        <div className="info">
+                                            <h4 className="title"><a href="#">{item.titleName}</a></h4>
+                                            <div className="date">{moment(item.newDate).format('DD/m/YYYY')}</div>
+                                        </div>
+                                    </li>
+                                    ))}
+                                   
+                                </ul>
+                            </div>
+
                             <div className="section-container">
                                 <h4 className="section-titles"><span>Categories</span></h4>
                                 <ul className="sidebar-list">
@@ -218,41 +242,6 @@ export default function NewsDetail() {
                             </div>
 
 
-                            <div className="section-container">
-                                <h4 className="section-titles"><span>Recent Post</span></h4>
-                                <ul className="sidebar-recent-post">
-                                    <li>
-                                        <div className="info">
-                                            <h4 className="title"><a href="#">Lorem ipsum dolor sit amet.</a></h4>
-                                            <div className="date">23 December 2024</div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div className="info">
-                                            <h4 className="title"><a href="#">Vestibulum a cursus arcu.</a></h4>
-                                            <div className="date">16 December 2024</div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div className="info">
-                                            <h4 className="title"><a href="#">Nullam vel condimentum lectus. </a></h4>
-                                            <div className="date">7 December 2024</div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div className="info">
-                                            <h4 className="title"><a href="#">Proin in dui egestas libero posuere ullamcorper. </a></h4>
-                                            <div className="date">20 November 2024</div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div className="info">
-                                            <h4 className="title"><a href="#">Interdum et malesuada fames ac ante.</a></h4>
-                                            <div className="date">5 November 2024</div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
 
 
                             <div className="section-container">

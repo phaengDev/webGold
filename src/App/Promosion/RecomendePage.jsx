@@ -80,7 +80,7 @@ export default function RecomendePage() {
     return chunkedArray;
   };
 
-  const chunkedProducts = chunkArray(currentItems, 3);
+  const chunkedProducts = chunkArray(currentItems, 4);
   const chunkedPattern = chunkArray(itemPattern, 6);
 
   const pageNumbers = [];
@@ -96,33 +96,33 @@ export default function RecomendePage() {
   return (
     <>
       <PageHeader text={'ລາຍກນສິນຄ້າແນະນຳທັງໝົດ'} />
-      <div id="search-results" class="section-container">
-        <div class="container">
-          <div class="search-container">
-            <div class="search-sidebar">
-              <h4 class="title mb-0 fs-18px">ປະເພດສິນຄ້າແນະນຳ</h4>
-              <ul class="search-category-list">
+      <div id="search-results" className="section-container">
+        <div className="container">
+          <div className="search-container">
+            <div className="search-sidebar">
+              <h4 className="title mb-0 fs-18px">ປະເພດສິນຄ້າແນະນຳ</h4>
+              <ul className="search-category-list">
                 {itemTiles.map((val, index) =>
-                  <li className=''><a href="javascript:;" onClick={() => handleFilterType(val.tile_uuid)} className={`fs-16px ${idFilter === val.tile_uuid && 'text-red'}`}><i class="fa-solid fa-angle-right" /> {val.tile_name} </a></li>
+                  <li className=''><a href="javascript:;" onClick={() => handleFilterType(val.tile_uuid)} className={`fs-16px ${idFilter === val.tile_uuid && 'text-red'}`}><i className="fa-solid fa-angle-right" /> {val.tile_name} </a></li>
                 )}
-                <li><a href="javascript:;" onClick={() => handleFilterType('')} className={`fs-16px ${idFilter === '' && 'text-red'}`}><i class="fa-solid fa-angle-right" /> -- ທັງໝົດ -- </a></li>
+                <li><a href="javascript:;" onClick={() => handleFilterType('')} className={`fs-16px ${idFilter === '' && 'text-red'}`}><i className="fa-solid fa-angle-right" /> -- ທັງໝົດ -- </a></li>
               </ul>
             </div>
 
 
-            <div class="search-content">
-              <div class="search-toolbar">
-                <div class="row">
-                  <div class="col-lg-6">
-                    <div class="position-relative  flex-fill pe-3">
-                      <button type="button" class="btn btn-default btn-lg position-absolute start-0 height-50px bg-none border-0"><i class="fa fa-search fa-fw"></i></button>
-                      <input type="text" class="form-control form-control-lg ps-5 fs-14px fw-bold  rounded-3 height-50px" onChange={(e) => handleFilter(e.target.value)} placeholder="ຄົ້ນຫາຊື່ສິນຄ້າ..." />
+            <div className="search-content">
+              <div className="search-toolbar">
+                <div className="row">
+                  <div className="col-lg-6">
+                    <div className="position-relative  flex-fill pe-3">
+                      <button type="button" className="btn btn-default btn-lg position-absolute start-0 height-50px bg-none border-0"><i className="fa fa-search fa-fw"></i></button>
+                      <input type="text" className="form-control form-control-lg ps-5 fs-14px fw-bold  rounded-3 height-50px" onChange={(e) => handleFilter(e.target.value)} placeholder="ຄົ້ນຫາຊື່ສິນຄ້າ..." />
                     </div>
                   </div>
-                  <div class="col-lg-6 text-end">
-                    <ul class="sort-list">
-                      <li class="text"><i class="fa fa-filter"></i> Sort by:</li>
-                      <li class="active"><a href="#">Popular</a></li>
+                  <div className="col-lg-6 text-end">
+                    <ul className="sort-list">
+                      <li className="text"><i className="fa fa-filter"></i> Sort by:</li>
+                      <li className="active"><a href="#">Popular</a></li>
                       <li><a href="#">New Arrival</a></li>
                       <li><a href="#">Discount</a></li>
                       <li><a href="#">Price</a></li>
@@ -133,7 +133,7 @@ export default function RecomendePage() {
 
               </div>
 
-              <div class="search-item-container">
+              <div className="search-item-container">
 
                 {loading ? (
                   <div className="text-center p-4">
@@ -158,7 +158,7 @@ export default function RecomendePage() {
                               </a>
                             </h4>
                             <p className="item-desc  text-cust">{item.recd_remark}</p>
-                            <div className="item-price">{numeral(item.price_sale).format('0,00')} ₭</div>
+                            <div className="item-price">{numeral(item.price_sale*item.qty_baht).format('0,00')} ₭</div>
                           </div>
                         </div>
                       ))}
@@ -169,7 +169,7 @@ export default function RecomendePage() {
 
               <ul className="pagination justify-content-center mt-0">
                 <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
-                  <a href="javascript:;" className="page-link" onClick={() => setCurrentPage(currentPage - 1)}><i class="fa-solid fa-angle-left" /></a>
+                  <a href="javascript:;" className="page-link" onClick={() => setCurrentPage(currentPage - 1)}><i className="fa-solid fa-angle-left" /></a>
                 </li>
                 {pageNumbers.map(number => (
                   <li key={number} className={`page-item ${currentPage === number ? 'active' : ''}`}>
@@ -177,7 +177,7 @@ export default function RecomendePage() {
                   </li>
                 ))}
                 <li className={`page-item ${currentPage === pageNumbers.length ? 'disabled' : ''}`}>
-                  <a href="javascript:;" className="page-link" onClick={() => setCurrentPage(currentPage + 1)}><i class="fa-solid fa-angle-right" /></a>
+                  <a href="javascript:;" className="page-link" onClick={() => setCurrentPage(currentPage + 1)}><i className="fa-solid fa-angle-right" /></a>
                 </li>
               </ul>
 
@@ -191,8 +191,6 @@ export default function RecomendePage() {
           handleClose={() => setShow(false)}
           item={data}
         />
-
-
 
         <div id="promotions" className="section-container bg-component">
           <div className="container">
@@ -228,11 +226,8 @@ export default function RecomendePage() {
 
                         </div>
                       ))}
-
-
                     </div>
                   </div>
-
                 ))}
 
 

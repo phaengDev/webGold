@@ -111,9 +111,9 @@ function PriceSale() {
                                 <th className='text-white text-center' width='5%' rowSpan={2}>#</th>
                             </tr>
                             <tr>
-                                <th className='text-white text-end'>ຍອດ <i class="fa-solid fa-caret-up text-gold" /> <i class="fa-solid fa-caret-down text-green" /></th>
+                                <th className='text-white text-end'>ຍອດ <i className="fa-solid fa-caret-up text-gold" /> <i className="fa-solid fa-caret-down text-green" /></th>
                                 <th className='text-white text-end'>ລາຄາຊື້</th>
-                                <th className='text-white text-end'>ຍອດ <i class="fa-solid fa-caret-up text-gold" /> <i class="fa-solid fa-caret-down text-green" /></th>
+                                <th className='text-white text-end'>ຍອດ <i className="fa-solid fa-caret-up text-gold" /> <i className="fa-solid fa-caret-down text-green" /></th>
                                 <th className='text-white text-end'>ລາຄາຂາຍ</th>
                             </tr>
                         </thead>
@@ -122,11 +122,11 @@ function PriceSale() {
                             <tr>
                                 <td className='text-center'>{key+1}</td>
                                 <td className='text-center'>{moment(item.update_date).format('DD/MM/YYYY hh:mm')}</td>
-                                <td className='text-end'>{item.buy > 0 ? '+':'' } {numeral(item.buy*item.grams).format('0,00.00')} </td>
+                                <td className={`text-end ${item.buy > 0 ?'text-red': item.buy < 0 ?'text-green':''}`}>{item.buy > 0 ? '+':'' } {numeral(item.buy*item.grams).format('0,00.00')} </td>
                                 <td className='text-end'>{numeral(item.price_buy_new*item.grams).format('0,00.00')} ₭</td>
-                                <td className='text-end'>{item.sale > 0 ? '+':'' } {numeral(item.sale*item.grams).format('0,00.00')} {item.sale > 1 ?(<i class="fa-solid fa-caret-up text-red" />):(<i class="fa-solid fa-caret-down text-green" />)} </td>
+                                <td className={`text-end ${item.sale > 0 ?'text-red': item.sale < 0 ?'text-green':''}`}>{item.sale > 0 ? '+':'' } {numeral(item.sale*item.grams).format('0,00.00')} {item.sale > 1 ?(<i className="fa-solid fa-caret-up text-red" />):item.sale < 0 ?(<i className="fa-solid fa-caret-down text-green" />) :''} </td>
                                 <td className='text-end'>{numeral(item.price_sale_new*item.grams).format('0,00.00')} ₭</td>
-                                <td className='text-center'>{item.price_img !=='' &&(<span role='button' className='text-red fs-18px'><i class="fa-solid fa-images"></i></span>)}</td>
+                                <td className='text-center'>{item.price_img !=='' &&(<span role='button' className='text-red fs-18px'><i className="fa-solid fa-images"></i></span>)}</td>
                             </tr>
                             ))}
                         </tbody>

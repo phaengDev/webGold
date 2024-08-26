@@ -63,13 +63,13 @@ export default function PatternPages() {
         <>
             <PageHeader text={'ລວດລາຍ ພະລິດຕະພັນ ຮ້ານຄຳ ນາງວຽງຄຳ'} />
 
-            <div id="promotions" class="section-container bg-component  pt-20px" >
-                <div class="container">
+            <div id="promotions" className="section-container bg-component  pt-20px" >
+                <div className="container">
                     <ul className="breadcrumb fs-16px">
                         <li className="breadcrumb-item"><Link to={'/'}>ໜ້າຫຼັກ</Link></li>
                         <li className="breadcrumb-item active">ລາຍການລວດລາຍ</li>
                     </ul>
-                    <div class="row gx-2 mb-0 mt-3 row-space-10">
+                    <div className="row gx-2 mb-0 mt-3 row-space-10">
                         {isloading === true ? (
                             <div className='col-sm-12 text-center'>
                                 <Commet color="#e91717" size="large" text="ກຳລັງໂຫລດ..." textColor="#f12424" />
@@ -77,8 +77,8 @@ export default function PatternPages() {
                         ) : (
                             <>
                                 {paginatedItems.map((val, index) =>
-                                    <div key={index} class="col-lg-3 col-md-4 col-sm-6 mb-2">
-                                        <div class="item news item-thumbnail overflow-hidden shadow-lg mb-5 mb-lg-0">
+                                    <div key={index} className="col-lg-3 col-md-4 col-sm-6 mb-2">
+                                        <div className="item news item-thumbnail overflow-hidden shadow-lg mb-5 mb-lg-0">
                                             <div className="news-media mb-0" onClick={()=>handleView(val)} role='button'>
                                                 <div className="news-media-img h-25"
                                                     style={{ backgroundImage: `url(${img}pattern/${val.pattern_img})` }}
@@ -123,7 +123,6 @@ export default function PatternPages() {
                                 </div>
                             </div>
                         )}
-
                     </div>
                 </div>
 

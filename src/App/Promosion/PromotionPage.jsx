@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import PageHeader from '../../Layout/page-header'
 import { Link } from 'react-router-dom';
-import { Config } from '../../config/connection';
+import { Config,Urlimage } from '../../config/connection';
 import axios from 'axios';
 import numeral from 'numeral';
 import { Commet } from 'react-loading-indicators';
 function PromotionPage() {
   const api = Config.urlApi;
-
+const img=Urlimage.url;
   const [isloading, setIsLoading] = useState(true);
   const [itemPromotion, setItemPromotion] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -88,7 +88,7 @@ function PromotionPage() {
                 {paginatedItems.map((val, index) =>
                   <div key={index} class="col-lg-3 col-md-4 col-sm-6 mb-2">
                     <div class="item item-thumbnail">
-                      <Link to={'/p-detail?d=' + val.promotion_id}><img className="d-block w-100" src="./assets/img/pos/m-1.jpg" alt /></Link>
+                      <Link to={'/p-detail?d=' + val.promotion_id}><img className="d-block w-100" src={`${img}promotion/${val.pro_image}`} alt /></Link>
                       <div class="item-info text-start">
                         <h4 class="item-title">
                           <Link to={'/p-detail?d=' + val.promotion_id}>{val.promotion_title}</Link>
@@ -157,7 +157,7 @@ function PromotionPage() {
                           <div className="col-lg-2 col-md-4 col-sm-6 mb-2">
                             <div className="item item-thumbnail">
                               <Link to={'/pat-detail?d=' + item.pattern_id} className="item-image p-0">
-                                <img src="./assets/img/pos/m-4.jpg" className='w-100 ' alt />
+                                <img src={`${img}pattern/${item.pattern_img}`} className='w-100 ' alt />
                                 <div className="discount">{item.option_name}</div>
                               </Link>
                               <div className="item-info text-start">

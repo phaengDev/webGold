@@ -31,8 +31,6 @@ function SliderPattern() {
             console.error('Error fetching data:', error);
         }
     };
-
-
     const responsive = {
         superLargeDesktop: {
             breakpoint: { max: 4000, min: 3000 },
@@ -40,7 +38,7 @@ function SliderPattern() {
         },
         desktop: {
             breakpoint: { max: 3000, min: 1024 },
-            items: 4
+            items: 5
         },
         tablet: {
             breakpoint: { max: 1024, min: 464 },
@@ -57,12 +55,12 @@ function SliderPattern() {
 
     // ==================
     const WithStyles = ({ headline, description, image,data }) => (
-        <div className="news rounded-3 overflow-hidden border  mb-lg-0 m-2" onClick={()=>handleView(data)} role='button' >
-            <div className="news-media ">
+        <div className="news  mb-lg-0 m-2" onClick={()=>handleView(data)} role='button' >
+            <div className="news-media rounded-3 overflow-hidden border bg-white">
                 <div className="post-image-cover" style={{ backgroundImage: `url(${image})` }}></div>
-                <div className="news-content px-2 my-1">
+                <div className="news-content bg-white px-2 mb-0">
                     <div className='news-title mb-1'>{headline}</div>
-                    <div className=''>{description}</div>
+                    <div className='mb-0'>{description}</div>
                 </div>
             </div>
         </div>

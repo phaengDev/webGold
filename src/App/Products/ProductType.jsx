@@ -5,6 +5,7 @@ import { Link, useLocation } from 'react-router-dom';
 import Loading from '../../Layout/Loading';
 import axios from 'axios';
 import numeral from 'numeral';
+import ViewPattern from '../Pattern/ViewPattern';
 import SliderPromostion from '../Promosion/SliderPromostion';
 function ProductType() {
     const api = Config.urlApi;
@@ -67,7 +68,14 @@ function ProductType() {
     }
 
 
-
+// ====================
+const [show, setShow] = useState(false);
+ const [viewItem,setViewItem]=useState({})
+ const handleView=(data)=>{
+    setViewItem(data)
+    setShow(true)
+}
+// ======================
 
     const [itemPromotion, setItemPromotion] = useState([]);
     const fetchPormotion = async () => {
@@ -139,14 +147,14 @@ function ProductType() {
     return (
         <>
             <PageHeader text={'ລາຍການພະລິດຕະພັນ'} />
-            <div id="search-results" class="section-container">
-                <div class="container">
-                    <div class="search-container">
-                        <div class="search-sidebar">
-                            <h4 class="title mb-0">ສີນຄ້າຕາມໝວດໝູ່ </h4>
-                            <ul class="search-category-list">
+            <div id="search-results" className="section-container">
+                <div className="container">
+                    <div className="search-container">
+                        <div className="search-sidebar">
+                            <h4 className="title mb-0">ສີນຄ້າຕາມໝວດໝູ່ </h4>
+                            <ul className="search-category-list">
                                 {itemTiles.map((item, index) =>
-                                    <li className='text-bleu'><Link to={'/pos?p=' + item.tile_uuid} onClick={() => handleShow(item.tile_uuid)} className={item.tile_uuid===tileId && 'text-red'}><i class="fa-solid fa-angle-right" /> {item.tile_name} <span class="pull-right">({item.qty_stock})</span></Link></li>
+                                    <li className='text-bleu'><Link to={'/pos?p=' + item.tile_uuid} onClick={() => handleShow(item.tile_uuid)} className={item.tile_uuid===tileId && 'text-red'}><i className="fa-solid fa-angle-right" /> {item.tile_name} <span className="pull-right">({item.qty_stock})</span></Link></li>
                                 )}
                             </ul>
 
@@ -154,7 +162,7 @@ function ProductType() {
                             <h4 className="section-titles"><span>ລາຍການພະລິດຕະພັນ</span></h4>
                             <div className="row">
                                 {itemProduct.map((val, key) =>
-                                    <Link key={key} to={'/detail/id=' + val.product_uuid} class="col-4 col-sm-3 col-md-2 badge bg-yellow-100 text-dark border m-1">{val.qty_baht + ' ' + val.option_name}</Link>
+                                    <Link key={key} to={'/detail/id=' + val.product_uuid} className="col-4 col-sm-3 col-md-2 badge bg-yellow-100 text-dark border m-1">{val.qty_baht + ' ' + val.option_name}</Link>
                                 )}
                             </div>
                             <hr />
@@ -162,13 +170,13 @@ function ProductType() {
                                 <h4 className="section-titles"><span>ໂປຣໂມຊັ່ນ</span></h4>
                                 <SliderPromostion settings={sliderSettings} className='row-space-10'>
                                     {itemPromotion.slice(0, 10).map((item, index) => (
-                                        <div key={index} class="work">
-                                            <div class="image">
-                                                <Link to={'/p-detail?d=' + item.promotion_id}><img src={`${img}promotion/${item.pro_image}`} alt={`Work  ${index}`} /></Link>
+                                        <div key={index} className="work">
+                                            <div className="image">
+                                              <img src={`${img}promotion/${item.pro_image}`} alt={`Work  ${index}`} />
                                             </div>
-                                            <div class="desc">
-                                                <span class="desc-title">{item.promotion_title} </span>
-                                                <span class="desc-text">{item.promotion_detail}</span>
+                                            <div className="desc">
+                                                <span className="desc-title">{item.promotion_title} </span>
+                                                <span className="desc-text">{item.promotion_detail}</span>
                                             </div>
                                         </div>
                                     ))}
@@ -177,19 +185,19 @@ function ProductType() {
 
                         </div>
 
-                        <div class="search-content">
-                            <div class="search-toolbar">
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <div class="position-relative  flex-fill pe-3">
-                                            <button type="button" class="btn btn-default btn-lg position-absolute start-0 height-50px bg-none border-0"><i class="fa fa-search fa-fw"></i></button>
-                                            <input type="text" class="form-control form-control-lg ps-5 fs-14px fw-bold  rounded-3 height-50px" onChange={(e) => handleFilter(e.target.value)} placeholder="ຄົ້ນຫາ.../ ບາດ / ສະຫຼຶງ / ຫຸນ" />
+                        <div className="search-content">
+                            <div className="search-toolbar">
+                                <div className="row">
+                                    <div className="col-lg-6">
+                                        <div className="position-relative  flex-fill pe-3">
+                                            <button type="button" className="btn btn-default btn-lg position-absolute start-0 height-50px bg-none border-0"><i className="fa fa-search fa-fw"></i></button>
+                                            <input type="text" className="form-control form-control-lg ps-5 fs-14px fw-bold  rounded-3 height-50px" onChange={(e) => handleFilter(e.target.value)} placeholder="ຄົ້ນຫາ.../ ບາດ / ສະຫຼຶງ / ຫຸນ" />
                                         </div>
                                     </div>
-                                    <div class="col-lg-6 text-end">
-                                        <ul class="sort-list mt-2">
-                                            <li class="text"><i class="fa fa-filter"></i> Sort by:</li>
-                                            <li class="active"><a href="javascript:;">ເປັນທີ່ນິຍົມ</a></li>
+                                    <div className="col-lg-6 text-end">
+                                        <ul className="sort-list mt-2">
+                                            <li className="text"><i className="fa fa-filter"></i> Sort by:</li>
+                                            <li className="active"><a href="javascript:;">ເປັນທີ່ນິຍົມ</a></li>
                                             <li><a href="javascript:;">ມາ​ໃຫມ່</a></li>
                                             <li><a href="javascript:;">ສ່ວນຫຼຸດ</a></li>
                                             <li><a href="javascript:;">ລາຄາ</a></li>
@@ -199,7 +207,7 @@ function ProductType() {
                             </div>
 
 
-                            <div class="search-item-container">
+                            <div className="search-item-container">
                                 {loading ? (
                                     <div className="text-center p-4">
                                         <Loading
@@ -234,7 +242,7 @@ function ProductType() {
 
                             <ul className="pagination justify-content-center mt-0">
                                 <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
-                                    <a href="javascript:;" className="page-link" onClick={() => setCurrentPage(currentPage - 1)}><i class="fa-solid fa-angle-left" /></a>
+                                    <a href="javascript:;" className="page-link" onClick={() => setCurrentPage(currentPage - 1)}><i className="fa-solid fa-angle-left" /></a>
                                 </li>
                                 {pageNumbers.map(number => (
                                     <li key={number} className={`page-item ${currentPage === number ? 'active' : ''}`}>
@@ -242,7 +250,7 @@ function ProductType() {
                                     </li>
                                 ))}
                                 <li className={`page-item ${currentPage === pageNumbers.length ? 'disabled' : ''}`}>
-                                    <a href="javascript:;" className="page-link" onClick={() => setCurrentPage(currentPage + 1)}><i class="fa-solid fa-angle-right" /></a>
+                                    <a href="javascript:;" className="page-link" onClick={() => setCurrentPage(currentPage + 1)}><i className="fa-solid fa-angle-right" /></a>
                                 </li>
                             </ul>
                         </div>
@@ -270,7 +278,7 @@ function ProductType() {
                                             {group.map((item, itemIndex) => (
                                                 <div key={itemIndex} className="col-lg-2 col-md-4 col-sm-6 mb-2">
                                                     <div className="item item-thumbnail">
-                                                        <a href="javascript:;" className="item-image">
+                                                        <a href="javascript:;"  onClick={()=>handleView(item)} className="item-image">
                                                             <img src={`${img}pattern/${item.pattern_img}`} alt={''} />
                                                             <div className="discount">{item.option_name}</div>
                                                         </a>
@@ -408,7 +416,12 @@ function ProductType() {
                     </div>
                 </div>
             </div>
-
+            <ViewPattern
+                show={show}
+                handleClose={() => setShow(false)}
+                data={viewItem}
+                url={img}
+            />
 
         </>
     )

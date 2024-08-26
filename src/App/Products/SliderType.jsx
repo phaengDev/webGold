@@ -4,11 +4,11 @@ function SliderType() {
    
     return (
         <>
-            <div id="work" class="content" data-scrollview="true">
+            <div id="work" className="content" data-scrollview="true">
 
-                <div class="container text-center" data-animation="true" data-animation-type="animate__fadeInDown">
-                    <h2 class="content-title">Our Latest Work</h2>
-                    <p class="content-desc">
+                <div className="container text-center" data-animation="true" data-animation-type="animate__fadeInDown">
+                    <h2 className="content-title">Our Latest Work</h2>
+                    <p className="content-desc">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum consectetur eros dolor,<br />
                         sed bibendum turpis luctus eget
                     </p>
@@ -19,54 +19,54 @@ function SliderType() {
                     
                     <Carousel >
                         <Carousel.Item style={{ height: '100px' }}>
-                            <div class="row row-space-10" style={{ height: '100%' }}>
-                                <div class="col-lg-3 col-md-4">
-                                    <div class="work">
-                                        <div class="image">
+                            <div className="row row-space-10" style={{ height: '100%' }}>
+                                <div className="col-lg-3 col-md-4">
+                                    <div className="work">
+                                        <div className="image">
                                             <a href="#"><img src="./assets/img/pos/m-1.jpg" alt="Work 1" /></a>
                                         </div>
-                                        <div class="desc">
-                                            <span class="desc-title">Aliquam molestie</span>
-                                            <span class="desc-text">Lorem ipsum dolor sit amet</span>
+                                        <div className="desc">
+                                            <span className="desc-title">Aliquam molestie</span>
+                                            <span className="desc-text">Lorem ipsum dolor sit amet</span>
                                         </div>
                                     </div>
                                 </div>
 
 
-                                <div class="col-lg-3 col-md-4">
-                                    <div class="work">
-                                        <div class="image">
+                                <div className="col-lg-3 col-md-4">
+                                    <div className="work">
+                                        <div className="image">
                                             <a href="#"><img src="./assets/img/pos/m-2.jpg" alt="Work 2" /></a>
                                         </div>
-                                        <div class="desc">
-                                            <span class="desc-title">Quisque at pulvinar lacus</span>
-                                            <span class="desc-text">Lorem ipsum dolor sit amet</span>
+                                        <div className="desc">
+                                            <span className="desc-title">Quisque at pulvinar lacus</span>
+                                            <span className="desc-text">Lorem ipsum dolor sit amet</span>
                                         </div>
                                     </div>
                                 </div>
 
 
-                                <div class="col-lg-3 col-md-4">
-                                    <div class="work">
-                                        <div class="image">
+                                <div className="col-lg-3 col-md-4">
+                                    <div className="work">
+                                        <div className="image">
                                             <a href="#"><img src="./assets/img/pos/m-3.jpg" alt="Work 3" /></a>
                                         </div>
-                                        <div class="desc">
-                                            <span class="desc-title">Vestibulum et erat ornare</span>
-                                            <span class="desc-text">Lorem ipsum dolor sit amet</span>
+                                        <div className="desc">
+                                            <span className="desc-title">Vestibulum et erat ornare</span>
+                                            <span className="desc-text">Lorem ipsum dolor sit amet</span>
                                         </div>
                                     </div>
                                 </div>
 
 
-                                <div class="col-lg-3 col-md-4">
-                                    <div class="work">
-                                        <div class="image">
+                                <div className="col-lg-3 col-md-4">
+                                    <div className="work">
+                                        <div className="image">
                                             <a href="#"><img src="./assets/img/pos/m-4.jpg" alt="Work 4" /></a>
                                         </div>
-                                        <div class="desc">
-                                            <span class="desc-title">Sed vitae mollis magna</span>
-                                            <span class="desc-text">Lorem ipsum dolor sit amet</span>
+                                        <div className="desc">
+                                            <span className="desc-title">Sed vitae mollis magna</span>
+                                            <span className="desc-text">Lorem ipsum dolor sit amet</span>
                                         </div>
                                     </div>
                                 </div>
@@ -74,54 +74,54 @@ function SliderType() {
                             </div>
                         </Carousel.Item>
                         <Carousel.Item>
-                            <div class="row row-space-10">
-                                <div class="col-lg-3 col-md-4">
-                                    <div class="work">
-                                        <div class="image">
+                            <div className="row row-space-10">
+                                <div className="col-lg-3 col-md-4">
+                                    <div className="work">
+                                        <div className="image">
                                             <a href="#"><img src="./assets/img/pos/m-1.jpg" alt="Work 1" /></a>
                                         </div>
-                                        <div class="desc">
-                                            <span class="desc-title">Aliquam molestie</span>
-                                            <span class="desc-text">Lorem ipsum dolor sit amet</span>
+                                        <div className="desc">
+                                            <span className="desc-title">Aliquam molestie</span>
+                                            <span className="desc-text">Lorem ipsum dolor sit amet</span>
                                         </div>
                                     </div>
                                 </div>
 
 
-                                <div class="col-lg-3 col-md-4">
-                                    <div class="work">
-                                        <div class="image">
+                                <div className="col-lg-3 col-md-4">
+                                    <div className="work">
+                                        <div className="image">
                                             <a href="#"><img src="./assets/img/pos/m-2.jpg" alt="Work 2" /></a>
                                         </div>
-                                        <div class="desc">
-                                            <span class="desc-title">Quisque at pulvinar lacus</span>
-                                            <span class="desc-text">Lorem ipsum dolor sit amet</span>
+                                        <div className="desc">
+                                            <span className="desc-title">Quisque at pulvinar lacus</span>
+                                            <span className="desc-text">Lorem ipsum dolor sit amet</span>
                                         </div>
                                     </div>
                                 </div>
 
 
-                                <div class="col-lg-3 col-md-4">
-                                    <div class="work">
-                                        <div class="image">
+                                <div className="col-lg-3 col-md-4">
+                                    <div className="work">
+                                        <div className="image">
                                             <a href="#"><img src="./assets/img/pos/m-3.jpg" alt="Work 3" /></a>
                                         </div>
-                                        <div class="desc">
-                                            <span class="desc-title">Vestibulum et erat ornare</span>
-                                            <span class="desc-text">Lorem ipsum dolor sit amet</span>
+                                        <div className="desc">
+                                            <span className="desc-title">Vestibulum et erat ornare</span>
+                                            <span className="desc-text">Lorem ipsum dolor sit amet</span>
                                         </div>
                                     </div>
                                 </div>
 
 
-                                <div class="col-lg-3 col-md-4">
-                                    <div class="work">
-                                        <div class="image">
+                                <div className="col-lg-3 col-md-4">
+                                    <div className="work">
+                                        <div className="image">
                                             <a href="#"><img src="./assets/img/pos/m-4.jpg" alt="Work 4" /></a>
                                         </div>
-                                        <div class="desc">
-                                            <span class="desc-title">Sed vitae mollis magna</span>
-                                            <span class="desc-text">Lorem ipsum dolor sit amet</span>
+                                        <div className="desc">
+                                            <span className="desc-title">Sed vitae mollis magna</span>
+                                            <span className="desc-text">Lorem ipsum dolor sit amet</span>
                                         </div>
                                     </div>
                                 </div>
