@@ -3,13 +3,13 @@ import { Config, Urlimage } from '../../config/connection'
 import numeral from 'numeral';
 import Loading from '../../Layout/Loading';
 import ViewRecomend from './ViewRecomend';
-import { useTitle } from '../../config/select-option';
+import { useTitle,useTypesOtion } from '../../config/select-option';
 import axios from 'axios';
 import PageHeader from '../../Layout/page-header';
 export default function RecomendePage() {
   const api = Config.urlApi;
   const img = Urlimage.url;
-
+const itemType=useTypesOtion();
   const itemTiles = useTitle();
 
   const [show, setShow] = useState(false);
@@ -60,6 +60,12 @@ export default function RecomendePage() {
     }
   }
 
+const [active,setActive]=useState('')
+  const handleFilterOption = (event) => {
+    setActive(event)
+    setItemRecomende(dataFilter.filter(n => n.optoin_id_fk.toLowerCase().includes(event)))
+  }
+
   useEffect(() => {
     fetchPattern();
     fetchRecomende();
@@ -99,7 +105,7 @@ export default function RecomendePage() {
       <div id="search-results" className="section-container">
         <div className="container">
           <div className="search-container">
-            <div className="search-sidebar">
+            <div className="search-sidebar sticky-lg-top-gold">
               <h4 className="title mb-0 fs-18px">ປະເພດສິນຄ້າແນະນຳ</h4>
               <ul className="search-category-list">
                 {itemTiles.map((val, index) =>
@@ -122,10 +128,10 @@ export default function RecomendePage() {
                   <div className="col-lg-6 text-end">
                     <ul className="sort-list">
                       <li className="text"><i className="fa fa-filter"></i> Sort by:</li>
-                      <li className="active"><a href="#">Popular</a></li>
-                      <li><a href="#">New Arrival</a></li>
-                      <li><a href="#">Discount</a></li>
-                      <li><a href="#">Price</a></li>
+                      <li className={!active &&('active')}><a href="javascript:;"  onClick={()=>handleFilterOption('')}>ທັງໝົດ</a></li>
+                      {itemType.map((data,index)=>(
+                      <li key={index} className={active===data.option_id &&('active')}><a href="javascript:;" onClick={()=>handleFilterOption(data.option_id)}>{data.option_name}</a></li>
+                    ))}
                     </ul>
                   </div>
 

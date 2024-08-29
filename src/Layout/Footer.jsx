@@ -1,106 +1,116 @@
-import React from 'react'
-
+import React, { useState, useEffect } from 'react'
+import { Config, Urlimage } from '../config/connection';
+import { useTitle } from '../config/select-option';
+import { Link } from 'react-router-dom';
+import numeral from 'numeral';
 export default function Footer() {
+    const api = Config.urlApi;
+    const image = Urlimage.url;
+    const itemTiles = useTitle();
+
+    const [itemRecomende, setItemRecomende] = useState([]);
+    const fetchRecomende = async () => {
+        try {
+            const response = await fetch(api + 'recd/');
+            const jsonData = await response.json();
+            setItemRecomende(jsonData);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    }
+
+    useEffect(() => {
+        fetchRecomende();
+    }, [])
     return (
         <>
             <div id="footer" className="footer border-5 border-top border-gold">
                 <div className="container">
                     <div className="row">
-
                         <div className="col-lg-3">
-                            <h4 className="footer-header">ABOUT US</h4>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nec tristique dolor, ac efficitur velit. Nulla lobortis tempus convallis. Nulla aliquam lectus eu porta pulvinar. Mauris semper justo erat.
+                            <h4 className="footer-header mb-1"><img src="./assets/img/logo/logo.png" className='w-100px' alt /></h4>
+                            <p className='fs-16px mt-1'>
+                                <div>-  ຮ້ານຄຳ ນາງວຽງຄຳ</div>
                             </p>
                             <p className="mb-lg-4 mb-0">
-                                Vestibulum porttitor lorem et vestibulum pharetra. Phasellus sit amet mi congue, hendrerit mi ut, dignissim eros.
+                                <div>ສິນຄ້າຄຸນນະພາບມາດຕະຖານຄຳ 99.99%</div>
+                                <div>ຮັບປະກັນລາຄາຄືນຕາມລາຄາຄຳ</div>
+                                <div>ສິນຄ້າທຸກອັນມາພ້ອມປ້າຍລາຄາ ແລະ ໃບຮັບປະກັນ.</div>
+                                <div>ບໍລິການສ້ອມແປງຟຣີຕະຫຼອດຊີວິດ</div>
                             </p>
                         </div>
 
-
                         <div className="col-lg-3">
-                            <h4 className="footer-header">RELATED LINKS</h4>
-                            <ul className="fa-ul mb-lg-4 mb-0 p-0">
-                                <li><i className="fa fa-fw fa-angle-right"></i> <a href="#">Shopping Help</a></li>
-                                <li><i className="fa fa-fw fa-angle-right"></i> <a href="#">Terms of Use</a></li>
-                                <li><i className="fa fa-fw fa-angle-right"></i> <a href="#">Contact Us</a></li>
-                                <li><i className="fa fa-fw fa-angle-right"></i> <a href="#">Careers</a></li>
-                                <li><i className="fa fa-fw fa-angle-right"></i> <a href="#">Payment Method</a></li>
-                                <li><i className="fa fa-fw fa-angle-right"></i> <a href="#">Sales & Refund</a></li>
-                                <li><i className="fa fa-fw fa-angle-right"></i> <a href="#">Sitemap</a></li>
-                                <li><i className="fa fa-fw fa-angle-right"></i> <a href="#">Privacy & Policy</a></li>
+                            <h4 className="footer-header">ໝວດສິນຄ້າ</h4>
+                            <ul className="list-unstyled mb-lg-4 mb-0 p-0 fs-15px">
+                                {itemTiles.map((item, index) => (
+                                    <li className='text-type'><i className="fa fa-fw fa-angle-right"></i> <Link to={'/pos?p=' + item.tile_uuid}>{item.tile_name}</Link></li>
+                                ))}
                             </ul>
                         </div>
 
 
                         <div className="col-lg-3">
-                            <h4 className="footer-header">LATEST PRODUCT</h4>
+                            <h4 className="footer-header">ຜະລິດຕະພັນຫຼ້າສຸດ</h4>
                             <ul className="list-unstyled list-product mb-lg-4 mb-0 p-0">
-                                <li>
-                                    <div className="image">
-                                        <img src="../assets/img/product/product-iphone-6s.jpg" alt />
-                                    </div>
-                                    <div className="info">
-                                        <h4 className="info-title">Iphone 6s</h4>
-                                        <div className="price">$1200.00</div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div className="image">
-                                        <img src="../assets/img/product/product-galaxy-s6.jpg" alt />
-                                    </div>
-                                    <div className="info">
-                                        <h4 className="info-title">Samsung Galaxy s7</h4>
-                                        <div className="price">$850.00</div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div className="image">
-                                        <img src="../assets/img/product/product-ipad-pro.jpg" alt />
-                                    </div>
-                                    <div className="info">
-                                        <h4 className="info-title">Ipad Pro</h4>
-                                        <div className="price">$800.00</div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div className="image">
-                                        <img src="../assets/img/product/product-galaxy-note5.jpg" alt />
-                                    </div>
-                                    <div className="info">
-                                        <h4 className="info-title">Samsung Galaxy Note 5</h4>
-                                        <div className="price">$1200.00</div>
-                                    </div>
-                                </li>
+                                {itemRecomende
+                                    .sort((a, b) => b.recomended_id - a.recomended_id) // Replace 'someProperty' with the property you want to sort by
+                                    .slice(0, 4)
+                                    .map((item, index) => (
+                                        <li key={index}>
+                                            <div className="image">
+                                                <img src={`${image}pos/${item.recd_image}`} className='w-100' alt="" />
+                                            </div>
+                                            <div className="info">
+                                                <h4 className="info-title">{item.recomennde_name}  ( {item.qty_baht + ' ' + item.option_name})</h4>
+                                                <div className="price">{numeral(item.price_sale * item.qty_baht).format('0,00')}</div>
+                                            </div>
+                                        </li>
+                                    ))}
+
+
                             </ul>
                         </div>
 
 
                         <div className="col-lg-3">
-                            <h4 className="footer-header">OUR CONTACT</h4>
+                            <h4 className="footer-header">ຕິດຕໍ່ຂອງພວກເຮົາ</h4>
                             <address className="mb-lg-4 mb-0">
-                                <strong>Twitter, Inc.</strong><br />
-                                1355 Market Street, Suite 900<br />
-                                San Francisco, CA 94103<br /><br />
-                                <abbr title="Phone">Phone:</abbr> (123) 456-7890<br />
-                                <abbr title="Fax">Fax:</abbr> (123) 456-7891<br />
-                                <abbr title="Email">Email:</abbr> <a href="/cdn-cgi/l/email-protection#493a28252c3a0924303a212639672a2624"><span className="__cf_email__" data-cfemail="deadbfb2bbad9eb3a7adb6b1aef0bdb1b3">[email&#160;protected]</span></a><br />
-                                <abbr title="Skype">Skype:</abbr> <a href="skype:myshop">myshop</a>
+                                <strong>ຮ້ານຄຳ ນາງວຽງຄຳ</strong><br />
+                                <div>- ຕັ້ງຢູ່ຕະຫລາດເຊົ້າມໍຊັ້ນ2</div>
+                                <div className='fs-14px'>- ບ້ານ ຫັດສະດີ ,ເມືອງ ຈັນທະບູລີ</div>
+                                <div className='fs-14px'>- ແຂວງ ນະຄອນຫຼວງວຽງຈັນ</div>
+
+                                <div></div>
+                                <abbr title="Phone" className='text-orange'><i class="fa-solid fa-phone fs-14px" /> : </abbr> <a href="tel:+8562095555609">(+856) 20 95 555 609</a> <br />
+                                <abbr title="Phone" className='text-orange'><i class="fa-solid fa-phone fs-14px" /> : </abbr> <a href="tel:+8562094424363">(+856) 020 94 424 363</a> <br />
+                                <abbr title="whatsapp" className='text-orange'> <i class="fa-brands fa-whatsapp  fs-14px" /> : </abbr> <a href="https://wa.me/8562095555609" target="_blank" rel="noopener noreferrer"> 20 95 555 609</a><br />
+                                <abbr title="Email" className='text-orange'><i class="fa-solid fa-envelope fs-14px" /> : </abbr>
+                                 <a href=""> Email</a><br />
+                                <abbr title="Facebook" className='text-orange'><i class="fa-brands fa-facebook-f fs-14px" /> : </abbr>
+                                <a href="https://www.facebook.com/profile.php?id=100064645995670" target='_blank'> Facebook</a><br />
+
+                                <abbr title="tiktok" className='text-orange'><i class="fa-brands fa-tiktok fs-14px"/> : </abbr>
+                                <a href="https://www.tiktok.com/@vkgold888" target='_blank'> Tiktok</a><br />
+
+                                <abbr title="Map" className='text-orange'> <i class="fa-solid fa-map-location-dot fs-14px"/> : </abbr>
+                                <a href="https://maps.app.goo.gl/Ec2sMx2JNsQEUKoL7" target='_blank'> Map (GPS)</a>
                             </address>
+
                         </div>
 
                     </div>
-
                 </div>
-
             </div>
+            
+            <script async src="https://static.addtoany.com/menu/page.js"></script>
             <div id="footer-copyright" className="footer-copyright bg-viengkham">
                 <div className="container">
                     <div className="payment-method">
                         <img src="./assets/img/logo/logo.png" alt />
                     </div>
                     <div className="copyright">
-                        Copyright &copy; 2024 SeanTheme. All rights reserved.
+                        ສະຫງວນລິຂະສິດ © {numeral(new Date().getFullYear()).format('YYYY')} ສະຫງວນລິຂະສິດທັງໝົດ.
                     </div>
                 </div>
             </div>

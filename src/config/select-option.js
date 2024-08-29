@@ -98,6 +98,25 @@ export function useTypes() {
     return data;
   }
 
+
+
+export function useTypesOtion() {
+  const [itemOption, setItemOption] = useState([]);
+  useEffect(() => {
+    const showOption = async () => {
+      try {
+        const response = await fetch(api + 'type/option');
+        const jsonData = await response.json();
+        setItemOption(jsonData);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+    showOption();
+  }, []); 
+  return itemOption;
+}
+
   export function useCurrency() {
     const [itemCurrency, setItemCurrency] = useState([]);
     useEffect(() => {

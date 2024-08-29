@@ -5,17 +5,20 @@ import Header from './Layout/Header';
 import Footer from './Layout/Footer';
 import Slider from './Layout/Slider';
 import AppContainer from './Router/Paste';
+import { ToastContainer, toast } from 'react-toastify';
 function App() {
   const location = useLocation();
   const pathName = location.pathname;
   const [path, setPath] = useState(pathName);
-  const [minified,setMinified]=useState(false);
+  // const [minified,setMinified]=useState(false);
   useEffect(() => {
     setPath(pathName);
     if(_.includes(path)){
-      setMinified(true);
+      // setMinified(true);
     }
+   
   }, [pathName]);
+
   return (
     <>
       <div id="app" class="fade show">
@@ -24,7 +27,7 @@ function App() {
         <Slider/>
       ):''}
         <AppContainer/>
-        
+        <ToastContainer />
         <Footer />
       </div>
     </>

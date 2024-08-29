@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Config, Urlimage } from '../../config/connection'
 import { Link, useLocation } from 'react-router-dom';
 import SliderPattern from '../Pattern/sliderPattern';
+import { toast } from 'react-toastify';
 import numeral from 'numeral';
 function ProductDetail() {
     const api = Config.urlApi;
@@ -11,7 +12,6 @@ function ProductDetail() {
     const psId = searchParams.get('V');
     const [data, setData] = useState({});
     const [dataList, setDataList] = useState([])
-
     const fetchDatail = async () => {
         try {
             const response = await fetch(api + 'posd/single/' + psId);
@@ -22,9 +22,54 @@ function ProductDetail() {
             console.error('Error fetching data:', error);
         }
     }
+
+    const [orderCart, setOrderCart] = useState(() => {
+        const savedCart = localStorage.getItem('orderCart');
+        return savedCart ? JSON.parse(savedCart) : [];
+    });
+
+
+    const handleAddOrder = (vals) => {
+        setOrderCart(prevOrderCart => {
+            const existingProduct = prevOrderCart.find(item => item.product_id_fk === vals.product_uuid);
+            if (existingProduct) {
+                const updatedCart = prevOrderCart.map(item =>
+                    item.product_id_fk === vals.product_uuid
+                        ? { ...item, qty_order: item.qty_order + 1 }
+                        : item
+                );
+               toast.success('ການເພີ່ມໃສ່ກະຕ່າສຳເລັດ');
+               localStorage.setItem('orderCart', JSON.stringify(updatedCart));
+                return updatedCart;
+            } else {
+                const updatedCart = [...prevOrderCart, {
+                    product_id_fk: vals.product_uuid,
+                    code_id:vals.code_id,
+                    qty_order: 1,
+                    qty_baht:vals.qty_baht,
+                    qty_grams:vals.grams,
+                    option_id_fk:vals.option_id_fk,
+                    option_name:vals.option_name,
+                    price_sale:vals.price_sale,
+                    tile_name:vals.tile_name,
+                    tiles_id_fk:vals.tiles_id_fk,
+                    title_image:vals.title_image,
+                    file_image:vals.file_image,
+                    typeName:vals.typeName,
+                    unite_name:vals.unite_name
+                     }];
+               toast.success('ການເພີ່ມໃສ່ກະຕ່າສຳເລັດ');
+               localStorage.setItem('orderCart', JSON.stringify(updatedCart));
+                return updatedCart;
+            }
+        });
+    };
+
+
     useEffect(() => {
-        fetchDatail()
-    }, [psId])
+        fetchDatail();
+        
+    }, [psId,orderCart])
     return (
         <>
 
@@ -59,8 +104,7 @@ function ProductDetail() {
                                     <ul className="product-category">
                                         <li><a href="#">{data.qty_baht + ' ' + data.option_name}</a></li>
                                         <li>/</li>
-                                        <li><a href="#">{data.grams} g</a></li>
-                                        <li>/</li>
+                                        <li><a href="#">{data.grams} Gram</a></li>
                                     </ul>
                                 </div>
 
@@ -72,11 +116,11 @@ function ProductDetail() {
                                 </div>
                                 <div className="product-social">
                                     <ul>
-                                        <li><a href="javascript:;" className="facebook" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-title="Facebook" data-bs-placement="top"><i className="fab fa-facebook-f"></i></a></li>
-                                        <li><a href="javascript:;" className="twitter" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-title="Twitter" data-bs-placement="top"><i className="fab fa-twitter"></i></a></li>
-                                        <li><a href="javascript:;" className="google-plus" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-title="Google Plus" data-bs-placement="top"><i className="fab fa-google-plus-g"></i></a></li>
-                                        <li><a href="javascript:;" className="whatsapp" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-title="Whatsapp" data-bs-placement="top"><i className="fab fa-whatsapp"></i></a></li>
-                                        <li><a href="javascript:;" className="tumblr" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-title="Tumblr" data-bs-placement="top"><i className="fab fa-tumblr"></i></a></li>
+                                        <li><a href="https://www.facebook.com/profile.php?id=100064645995670" className="facebook" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-title="Facebook" data-bs-placement="top"><i className="fab fa-facebook-f"></i></a></li>
+                                        <li><a href="javascript:;" className="google-plus" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-title="Email" data-bs-placement="top"><i class="fa-solid fa-envelope"/></a></li>
+                                        <li><a href="https://wa.me/8562095555609" target="_blank" className="whatsapp" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-title="Whatsapp" data-bs-placement="top"><i className="fab fa-whatsapp"></i></a></li>
+                                        <li><a href="tel:+8562095555609" className="tumblr" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-title="call" data-bs-placement="top"><i class="fa-solid fa-phone"/></a> </li>
+                                        <li><a href="https://www.tiktok.com/@vkgold888" className="bg-dark" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-title="Tiktok" data-bs-placement="top"><i class="fa-brands fa-tiktok"/></a></li>
                                     </ul>
                                 </div>
 
@@ -84,7 +128,7 @@ function ProductDetail() {
                                     <div className="product-price">
                                         <div className="price">{numeral(data.price_sale * data.grams).format('0,00')} ₭</div>
                                     </div>
-                                    <a href="javascript:;" className="btn btn-dark btn-theme btn-lg w-200px">ເພີ່ມໃສ່ກະຕ່າ</a>
+                                    <a href="javascript:;" onClick={() => handleAddOrder(data)} className="btn btn-dark btn-theme border-3 border-gold rounded-pill btn-lg w-200px">ເພີ່ມໃສ່ກະຕ່າ</a>
                                 </div>
                             </div>
                         </div>

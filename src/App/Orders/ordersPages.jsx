@@ -1,17 +1,74 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import FormCustomer from './formCustomer'
-import Payment from './Payment'
+import Payment from './Payment';
+import numeral from 'numeral';
+import { Urlimage } from '../../config/connection';
 function OrdersPages() {
-    const [nextPage, setNextPage] = useState(3)
+    const img = Urlimage.url;
+    const [nextPage, setNextPage] = useState(1)
     const handleNext = (index) => {
         setNextPage(index)
     }
+
+    const [orderCart, setOrderCart] = useState([]);
+    useEffect(() => {
+        const savedCart = JSON.parse(localStorage.getItem('orderCart')) || [];
+        setOrderCart(savedCart);
+    }, [])
+
+    const removeCart = (product_id_fk) => {
+        const updatedCart = orderCart.filter(item => item.product_id_fk !== product_id_fk);
+        setOrderCart(updatedCart);
+        localStorage.setItem('orderCart', JSON.stringify(updatedCart)); // Update localStorage
+    };
+
+
+    const handlePlus = (product_id_fk) => {
+        setOrderCart(prevOrderCart => 
+            prevOrderCart.map(item =>
+                item.product_id_fk === product_id_fk
+                    ? { ...item, qty_order: item.qty_order + 1 }
+                    : item
+            )
+        );
+    };
+    
+    // const handleMinus = (product_id_fk) => {
+    //     setOrderCart(prevOrderCart => 
+    //         prevOrderCart.map(item =>
+    //             item.product_id_fk === product_id_fk
+    //                 ? { ...item, qty_order: item.qty_order > 1 ? item.qty_order - 1 : 1 } // Prevent qty_order from going below 1
+    //                 : item
+    //         )
+    //     );
+    // };
+    
+    const handleMinus = (product_id_fk) => {
+        setOrderCart(prevOrderCart => {
+            return prevOrderCart.map(item => {
+                if (item.product_id_fk === product_id_fk) {
+                    if (item.qty_order > 1) {
+                        return { ...item, qty_order: item.qty_order - 1 };
+                    } else {
+                        const updatedCart = prevOrderCart.filter(item => item.product_id_fk !== product_id_fk);
+                        localStorage.setItem('orderCart', JSON.stringify(updatedCart));
+                        return null; 
+                    }
+                }
+                return item;
+            }).filter(item => item !== null); // Filter out any null values (removed items)
+        });
+    };
+
+    const totalSum = orderCart.reduce((total, item) => {
+        return total + (item.price_sale * item.qty_grams * item.qty_order);
+    }, 0);
     return (
         <>
-            <div class="section-container" id="checkout-cart">
-                <div class="container">
-                    <div class="checkout">
-                        <div class="checkout-header">
+            <div class="section-container " id="checkout-cart">
+                <div class="container ">
+                    <div class="checkout rounded-top-4">
+                        <div class="checkout-header border-top rounded-bottom-0 rounded-4 border-4 border-gold">
                             <div class="row">
                                 <div class="col-lg-3">
                                     <div class={`step ${nextPage === 1 && 'active'}`}>
@@ -68,7 +125,7 @@ function OrdersPages() {
                             <>
                                 <div class="checkout-body">
                                     <div class="table-responsive">
-                                        <table class="table table-cart">
+                                        <table class="table table-cart text-nowrap">
                                             <thead>
                                                 <tr>
                                                     <th>Product Name</th>
@@ -78,45 +135,46 @@ function OrdersPages() {
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td class="cart-product">
-                                                        <div class="d-flex">
-                                                            <div class="product-img h-150px w-100px d-flex align-items-center justify-content-center">
-                                                                <img src="./assets/img/pos/3.jpg" class="mw-100 mh-100" alt />
+                                                {orderCart.map((item, index) => (
+                                                    <tr>
+                                                        <td class="cart-product">
+                                                            <div class="d-flex">
+                                                                <div class="product-img h-150px w-100px d-flex align-items-center justify-content-center">
+                                                                    <img src={item.file_image !== '' ? img + 'pos/' + item.file_image : img + 'title/' + item.title_image} class="mw-80 mh-80" alt />
+                                                                </div>
+                                                                <div class="product-info ms-3">
+                                                                    <div class="title">{item.tile_name} {item.qty_baht + ' ' + item.option_name}</div>
+                                                                    <div class="desc">ບັນຈຸ {item.qty_grams * item.qty_order} Garm</div>
+                                                                </div>
                                                             </div>
-                                                            <div class="product-info ms-3">
-                                                                <div class="title">iPhone 12 Pro Max 128GB (Blue)</div>
-                                                                <div class="desc">Delivers Tue 26/04/2024 - Free</div>
+                                                        </td>
+                                                        <td class="cart-price text-center">{numeral(item.price_sale * item.qty_grams).format('0,00')} ₭</td>
+                                                        <td class="cart-qty text-center">
+                                                            <div class="cart-qty-input">
+                                                                <a href="javascript:;" onClick={()=>handleMinus(item.product_id_fk)} class="qty-control left bg-red text-white" data-click="decrease-qty" data-target="#qty"><i class="fa fa-minus"></i></a>
+                                                                <input type="text" name="qty" value={item.qty_order} class="form-control" id="qty" />
+                                                                <a href="javascript:;" onClick={()=>handlePlus(item.product_id_fk)} class="qty-control right bg-green text-white" data-click="increase-qty" data-target="#qty"><i class="fa fa-plus"></i></a>
                                                             </div>
-                                                        </div>
-                                                    </td>
-                                                    <td class="cart-price text-center">$999.00</td>
-                                                    <td class="cart-qty text-center">
-                                                        <div class="cart-qty-input">
-                                                            <a href="javascript:;" class="qty-control left bg-red text-white" data-click="decrease-qty" data-target="#qty"><i class="fa fa-minus"></i></a>
-                                                            <input type="text" name="qty" value="1" class="form-control" id="qty" />
-                                                            <a href="javascript:;" class="qty-control right bg-green text-white" data-click="increase-qty" data-target="#qty"><i class="fa fa-plus"></i></a>
-                                                        </div>
-                                                        <div class="qty-desc">1 to max order</div>
-                                                    </td>
-                                                    <td class="cart-total text-center">
-                                                        $999.00
-                                                    </td>
-                                                </tr>
+                                                        </td>
+                                                        <td class="cart-total text-center">
+                                                            {numeral(item.price_sale * item.qty_grams * item.qty_order).format('0,00')} ₭
+                                                        </td>
+                                                    </tr>
+                                                ))}
                                                 <tr>
                                                     <td class="cart-summary" colspan="4">
                                                         <div class="summary-container">
                                                             <div class="summary-row">
-                                                                <div class="field">ລວມອໍເດີທັງໝົດ</div>
-                                                                <div class="value">$999.00</div>
+                                                                <div class="field">ລວມຍອດ</div>
+                                                                <div class="value">{numeral(totalSum).format('0,00')} ₭</div>
                                                             </div>
                                                             <div class="summary-row text-danger">
-                                                                <div class="field">ການຂົນສົ່ງຟຣີ</div>
-                                                                <div class="value">$0.00</div>
+                                                                <div class="field">ສວນຫຼຸດ</div>
+                                                                <div class="value">0.00</div>
                                                             </div>
                                                             <div class="summary-row total">
-                                                                <div class="field">ທັງໝົດ</div>
-                                                                <div class="value">$999.00</div>
+                                                                <div class="field">ຍອດລວມທັງໝົດ</div>
+                                                                <div class="value">{numeral(totalSum).format('0,00')} ₭</div>
                                                             </div>
                                                         </div>
                                                     </td>
@@ -127,15 +185,15 @@ function OrdersPages() {
                                 </div>
 
                                 <div class="checkout-footer d-flex">
-                                    <a href="#" class="btn btn-white btn-lg me-auto btn-theme w-250px">CONTINUE SHOPPING</a>
-                                    <button type="button" onClick={() => handleNext(2)} class="btn btn-dark btn-lg btn-theme w-250px">ດຳເນີນການຕໍ່ໄປ <i class="fa-solid fa-angles-right" /></button>
+                                    <a href="#" class="me-auto"></a>
+                                    <button type="button" onClick={() => handleNext(2)} class="btn btn-dark btn-lg btn-theme border-3 border-gold rounded-pill w-250px">ດຳເນີນການຕໍ່ໄປ <i class="fa-solid fa-angles-right" /></button>
                                 </div>
                             </>
-                        ) :nextPage === 2 ?(<>
+                        ) : nextPage === 2 ? (<>
                             <FormCustomer handleNext={() => handleNext(1)} />
-                        </>):nextPage === 3?(
-                            <Payment handleNext={() => handleNext(2)}/>
-                        ):''}
+                        </>) : nextPage === 3 ? (
+                            <Payment handleNext={() => handleNext(2)} />
+                        ) : ''}
                     </div>
 
                 </div>
@@ -146,11 +204,8 @@ function OrdersPages() {
             <div id="policy" class="section-container bg-component">
 
                 <div class="container">
-
                     <div class="row">
-
                         <div class="col-lg-4 col-md-4 mb-4 mb-md-0">
-
                             <div class="policy">
                                 <div class="policy-icon"><i class="fa fa-truck"></i></div>
                                 <div class="policy-info">
@@ -158,7 +213,6 @@ function OrdersPages() {
                                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                                 </div>
                             </div>
-
                         </div>
 
 

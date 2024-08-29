@@ -1,7 +1,8 @@
 import moment from 'moment'
-import React from 'react'
+import React,{useEffect,useState} from 'react'
 
-const Payment = ({ }) => {
+const Payment = ({ handleNext }) => {
+    
     return (
         <>
             <div class="checkout">
@@ -10,13 +11,13 @@ const Payment = ({ }) => {
                     <div class="mb-2 row">
                         <label class="col-md-4 col-form-label text-lg-end">ຊື່ຜູ້ຖືບັດ /Cardholder Name <span class="text-danger">*</span></label>
                         <div class="col-md-4">
-                            <input type="text" class="form-control required" name="cardholder" placeholder />
+                            <input type="text" class="form-control required" name="cardholder" placeholder='' required />
                         </div>
                     </div>
                     <div class="mb-2 row">
                         <label class="col-md-4 col-form-label text-lg-end">ໝາຍເລກການໂອນ/Transfer number <span class="text-danger">*</span></label>
                         <div class="col-md-4">
-                            <input type="text" class="form-control required" name="cardnumber" placeholder />
+                            <input type="text" class="form-control required" name="cardnumber" placeholder='XXX-XXXX' required />
                         </div>
                     </div>
 
@@ -29,15 +30,22 @@ const Payment = ({ }) => {
                     <div class="mb-2 row">
                         <label class="col-md-4 col-form-label text-lg-end">ສະລິບການໂອນ <span class="text-danger">*</span></label>
                         <div class="col-md-4 d-flex align-items-center">
-                                <input type="file" name="number" placeholder class="form-control required " />
-                           
+                            <input type="file" name="number" placeholder='' class="form-control required " required />
+
+                        </div>
+                    </div>
+                    <div class="mb-2 row">
+                        <label class="col-md-4 col-form-label text-lg-end">ໝາຍເຫດ <span class="text-danger">*</span></label>
+                        <div class="col-md-4 d-flex align-items-center">
+                            <textarea rows={4} name="number" placeholder='ໝາຍເຫດ.....' class="form-control required " required/>
+
                         </div>
                     </div>
                 </div>
 
 
                 <div class="checkout-footer d-flex">
-                    <a href="checkout_info.html" class="btn btn-white btn-theme me-auto">BACK</a>
+                    <button type='button' onClick={() => handleNext(3)} class="btn btn-white btn-theme me-auto">BACK</button>
                     <button type="submit" class="btn btn-dark btn-theme">PROCEED</button>
                 </div>
 

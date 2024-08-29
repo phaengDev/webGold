@@ -10,7 +10,7 @@ const FormCustomer = ({ handleNext }) => {
                            ຊື່ລູກຄ້າ /First Name <span class="text-danger">*</span> 
                         </label>
                         <div class="col-md-4">
-                            <input type="text" class="form-control" name="first_name"  placeholder />
+                            <input type="text" class="form-control" name="first_name"  placeholde=' ຊື່ລູກຄ້າ /First Name' />
                         </div>
                     </div>
                     <div class="mb-2 row">
@@ -18,7 +18,7 @@ const FormCustomer = ({ handleNext }) => {
                         ນາມສະກຸນ / Last Name <span class="text-danger">*</span>
                         </label>
                         <div class="col-md-4">
-                            <input type="text" class="form-control" name="last_name"  placeholder />
+                            <input type="text" class="form-control" name="last_name"  placeholder='ນາມສະກຸນ / Last Name' />
                         </div>
                     </div>
                     <div class="mb-2 row">
@@ -26,7 +26,7 @@ const FormCustomer = ({ handleNext }) => {
                             ຊື່ທີ່ຢູ່ປະຈຸບັນ /Address Name <span class="text-danger">&nbsp;</span>
                         </label>
                         <div class="col-md-8">
-                            <textarea class="form-control" name="company_name"  placeholder />
+                            <textarea class="form-control" name="company_name"  placeholder='ຊື່ທີ່ຢູ່ປະຈຸບັນ /Address Name' />
                         </div>
                     </div>
                     <div class="mb-2 row">
@@ -34,7 +34,7 @@ const FormCustomer = ({ handleNext }) => {
                             ອາຍຸ /Age <span class="text-danger">*</span>
                         </label>
                         <div class="col-md-4">
-                            <input type="number" class="form-control" name="area_code"  placeholder />
+                            <input type="number" class="form-control" name="area_code"  placeholder='ອາຍຸ /Age' />
                         </div>
                     </div>
                     <div class="mb-2 row">
@@ -42,7 +42,15 @@ const FormCustomer = ({ handleNext }) => {
                         ໂທລະສັບຫຼັກ /Primary Phone <span class="text-danger">*</span>
                         </label>
                         <div class="col-md-4">
-                            <input type="text" class="form-control" name="primary_phone"  placeholder />
+                            <input type="text" class="form-control" name="primary_phone"  placeholder='020 99 999 999' />
+                        </div>
+                    </div>
+                    <div class="mb-2 row">
+                        <label class="col-form-label col-md-4 text-lg-end">
+                        ອີເມວ /Email address <span class="text-danger">*</span>
+                        </label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" name="primary_phone"  placeholder='***@gmail.com' />
                         </div>
                     </div>
                     <div class="mb-2 row">
@@ -50,7 +58,7 @@ const FormCustomer = ({ handleNext }) => {
                             ເລກບັດປະຈຳຕົວ /ID card number <span class="text-danger">*</span>
                         </label>
                         <div class="col-md-4">
-                            <input type="text" class="form-control mb-10px" name="address_1"  placeholder />
+                            <input type="text" class="form-control mb-10px" name="address_1"  placeholder='ເລກບັດປະຈຳຕົວ' />
                         </div>
                     </div>
                     <div class="mb-2 row">
@@ -90,8 +98,8 @@ const FormCustomer = ({ handleNext }) => {
 
                 <div class="checkout-footer d-flex">
                     <a href="javascript:;"
-                        onClick={() => handleNext(1)} class="btn btn-white btn-theme me-auto"><i class="fa-solid fa-angles-left"/> ຍ້ອນກັບ</a>
-                    <button type="submit" class="btn btn-dark btn-theme ms-10px">CONTINUE</button>
+                        onClick={() => handleNext(1)} class="btn btn-white btn-theme me-auto border-3 border-gold rounded-pill"><i class="fa-solid fa-angles-left"/> ຍ້ອນກັບ</a>
+                    <button type="submit" class="btn btn-dark btn-theme ms-10px border-3 border-gold rounded-pill">ບັນທຶກຂໍ້ມູນ <i class="fa-solid fa-angles-right"/></button>
                 </div>
 
             </form >

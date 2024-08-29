@@ -12,6 +12,9 @@ import PatternPages from '../App/Pattern/PatternPages';
 import PriceSale from '../App/Prices/PriceSale';
 import RecomendePage from '../App/Promosion/RecomendePage';
 import OrdersPages from '../App/Orders/ordersPages';
+import ApplyJobPage from '../App/job/apply-jobPage';
+import RegisterJob from '../App/job/registerJob';
+import AboutPage from '../App/About/aboutPage';
 // import CheckPrice from '../App/action/check-price';
 export default function AppContainer() {
   return (
@@ -29,6 +32,9 @@ export default function AppContainer() {
             <Route path="/price" element={<PriceSale />} />
             <Route path='/recomend'element={<RecomendePage/>} />
             <Route path='/order'element={<OrdersPages/>} />
+            <Route path='/job'element={<ApplyJobPage/>} />
+            <Route path='/j'element={<RegisterJob/>} />
+            <Route path='/about'element={<AboutPage/>} />
             </Routes>
   )
 }

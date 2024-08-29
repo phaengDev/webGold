@@ -45,7 +45,7 @@ export default function NewsDetail() {
     useEffect(() => {
         fetchNewEvent()
         showEvent();
-    }, [eventId])
+    }, [eventId,item])
     return (
         <>
             <div id="content" className="content bg-component">

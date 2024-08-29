@@ -83,7 +83,7 @@ function NewEvennt() {
             <div id="page-title" class="page-title has-bg">
                 <div class="bg-cover" data-paroller="true" data-paroller-factor="0.5" data-paroller-factor-xs="0.2" style={{ background: "url(./assets/img/slider/home-1/slide-1.jpg) center 0px / cover no-repeat" }}></div>
                 <div class="container">
-                    <h1>Official Color Admin Blog</h1>
+                    <h1>ຂໍ້ມູນຂ່າວສານ ການເຄື່ອນໄຫວ ຮ້ານຄຳ ນາງວຽງຄຳ</h1>
                     <p>Blog Concept Front End Page</p>
                 </div>
             </div>
@@ -150,16 +150,16 @@ function NewEvennt() {
                                                         </div>
                                                     </div>
                                                 ) : item.img_list.length === 1 && (
-                                                    item.img_list.map((val, key) => 
-                                                    <div className="post-image">
-                                                        <Link to={'/detail?v=' + btoa(item.event_id)}>
-                                                            <div
-                                                                className="post-image-cover"
-                                                                style={{ backgroundImage: `url(${img}potstnew/${val.img_list}`}}
-                                                            ></div>
-                                                        </Link>
-                                                    </div>
-                                                ))}
+                                                    item.img_list.map((val, key) =>
+                                                        <div className="post-image">
+                                                            <Link to={'/detail?v=' + btoa(item.event_id)}>
+                                                                <div
+                                                                    className="post-image-cover"
+                                                                    style={{ backgroundImage: `url(${img}potstnew/${val.img_list}` }}
+                                                                ></div>
+                                                            </Link>
+                                                        </div>
+                                                    ))}
 
                                                 <div className="post-info">
                                                     <h4 className="post-title">
@@ -203,63 +203,67 @@ function NewEvennt() {
 
 
                         <div className="col-lg-3">
-                            <div className="section-container pt-0">
-                                <div className="input-group sidebar-search">
-                                    <input type="text" className="form-control" placeholder="Search Our Stories..." />
-                                    <button className="btn btn-dark" type="button"><i className="fa fa-search"></i></button>
+                            <div className="sticky-lg-top-gold">
+
+                                <div className="section-container pt-0">
+                                    <div className="input-group sidebar-search">
+                                        <input type="text" className="form-control" placeholder="Search Our Stories..." />
+                                        <button className="btn btn-dark" type="button"><i className="fa fa-search"></i></button>
+                                    </div>
                                 </div>
-                            </div>
 
 
-                            <div className="section-container pt-0">
-                                <h4 className="section-titles"><span>ຂາວສານ ຮ້ານຄຳ ນາງວຽງຄຳ</span></h4>
-                                <ul className="sidebar-recent-post">
-                                    {itemNew.map((item, index) => (
-                                        <li key={index}>
-                                            <div className="info">
-                                                <h4 className="title"><Link to={'/detail?v=' + btoa(item.event_id)}>{item.titleName}</Link></h4>
-                                                <div className="date">{moment(item.newDate).format('DD/MM/YYYY')}</div>
+                                <div className="section-container pt-0">
+                                    <h4 className="section-titles"><span>ຂາວສານ ຮ້ານຄຳ ນາງວຽງຄຳ</span></h4>
+                                    <ul className="sidebar-recent-post">
+                                        {itemNew.map((item, index) => (
+                                            <li key={index}>
+                                                <div className="info">
+                                                    <h4 className="title"><Link to={'/detail?v=' + btoa(item.event_id)}>{item.titleName}</Link></h4>
+                                                    <div className="date">{moment(item.newDate).format('DD/MM/YYYY')}</div>
+                                                </div>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+
+
+                                <div className="section-container pt-0">
+                                    <h4 className="section-titles"><span>ປະເພດພະລິດຕະພັນ</span></h4>
+                                    <ul className="sidebar-list">
+                                        {itemTiles.map((row, index) => (
+                                            <li key={index} className='fs-15px'><Link to={'/pos?p=' + row.tile_uuid}><i class="fa-solid fa-angle-right" /> {row.tile_name} ({row.qty_stock})</Link></li>
+                                        ))}
+                                    </ul>
+                                </div>
+
+
+                                <div className="section-container">
+                                    <h4 className="section-titles"><span>Follow Us</span></h4>
+                                    <ul className="sidebar-social-list">
+                                        <li><a href="https://www.facebook.com/profile.php?id=100064645995670" target="_blank"><i className="fab fa-facebook"></i></a></li>
+                                        <li><a href="https://wa.me/02052160011?text=ສະບາຍດີ ຂ້ອຍສົນໃຈຄຳ ຂ້ອຍມາຈາກ ເວັບໄຊທ໌ເດີ ຂໍລາຍລະອຽດແດ່" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp"></i></a></li>
+                                        <li><a href="#"><i className="fab fa-google-plus"></i></a></li>
+                                        <li><a href="#"><i className="fab fa-instagram"></i></a></li>
+                                    </ul>
+                                </div>
+                                <div className="section-container" data-animation="true" data-animation-type="animate__fadeInDown">
+                                    <h4 className="section-titles"><span>ໂປຣໂມຊັ່ນ</span></h4>
+                                    <SliderPromostion settings={sliderSettings} className='row-space-10'>
+                                        {itemPromotion.slice(0, 10).map((item, index) => (
+                                            <div key={index} class="work">
+                                                <div class="image">
+                                                    <Link to={'/p-detail?d=' + item.promotion_id}><img src={`${img}promotion/${item.pro_image}`} alt={`Work  ${index}`} /></Link>
+                                                </div>
+                                                <div class="desc">
+                                                    <span class="desc-title">{item.promotion_title} </span>
+                                                    <span class="desc-text">{item.promotion_detail}</span>
+                                                </div>
                                             </div>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
+                                        ))}
+                                    </SliderPromostion>
+                                </div>
 
-
-                            <div className="section-container pt-0">
-                                <h4 className="section-titles"><span>ປະເພດພະລິດຕະພັນ</span></h4>
-                                <ul className="sidebar-list">
-                                    {itemTiles.map((row, index) => (
-                                        <li key={index} className='fs-15px'><Link to={'/pos?p=' + row.tile_uuid}><i class="fa-solid fa-angle-right" /> {row.tile_name} ({row.qty_stock})</Link></li>
-                                    ))}
-                                </ul>
-                            </div>
-
-
-                            <div className="section-container">
-                                <h4 className="section-titles"><span>Follow Us</span></h4>
-                                <ul className="sidebar-social-list">
-                                    <li><a href="https://www.facebook.com/profile.php?id=100064645995670" target="_blank"><i className="fab fa-facebook"></i></a></li>
-                                    <li><a href="https://wa.me/02052160011?text=ສະບາຍດີ ຂ້ອຍສົນໃຈຄຳ ຂ້ອຍມາຈາກ ເວັບໄຊທ໌ເດີ ຂໍລາຍລະອຽດແດ່" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp"></i></a></li>
-                                    <li><a href="#"><i className="fab fa-google-plus"></i></a></li>
-                                    <li><a href="#"><i className="fab fa-instagram"></i></a></li>
-                                </ul>
-                            </div>
-                            <div className="section-container" data-animation="true" data-animation-type="animate__fadeInDown">
-                            <h4 className="section-titles"><span>ໂປຣໂມຊັ່ນ</span></h4>
-                                <SliderPromostion settings={sliderSettings} className='row-space-10'>
-                                {itemPromotion.slice(0, 10).map((item, index) => (
-                                        <div key={index} class="work">
-                                            <div class="image">
-                                                <Link to={'/p-detail?d=' + item.promotion_id}><img src={`${img}promotion/${item.pro_image}`} alt={`Work  ${index}`} /></Link>
-                                            </div>
-                                            <div class="desc">
-                                                <span class="desc-title">{item.promotion_title} </span>
-                                                <span class="desc-text">{item.promotion_detail}</span>
-                                            </div>
-                                        </div>
-                                   ) )}
-                                </SliderPromostion>
                             </div>
                         </div>
                     </div>
