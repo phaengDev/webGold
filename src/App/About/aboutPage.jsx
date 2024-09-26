@@ -14,7 +14,7 @@ export default function AboutPage() {
                     }}
                 ></div>
                 <div className="container">
-                    <h1>ຂໍ້ມູນຕິຕໍ່ພວກເຮົາ</h1>
+                    <h1>ຂໍ້ມູນຕິດຕໍ່ພວກເຮົາ</h1>
                     <p>ຮ້ານຄຳ ນາງວຽງຄຳ </p>
                 </div>
             </div>

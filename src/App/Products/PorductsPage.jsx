@@ -63,12 +63,6 @@ function PorductsPage() {
         return chunkedArray;
     };
 
-    // const chunkedProducts = chunkArray(itemProduct, 4);
-
-    // const pageNumbers = [];
-    // for (let i = 1; i <= Math.ceil(itemProduct.length / itemsPerPage); i++) {
-    //     pageNumbers.push(i);
-    // }
     return (
         <>
             <PageHeader text={'ລາຍການພະລິດຕະພັນທັງໝົດ'} />
@@ -96,9 +90,9 @@ function PorductsPage() {
                             <div className="category-container">
                                 <div className="category-sidebar">
                                     <ul className="category-list">
-                                        <li className="list-header">Top Categories</li>
+                                        <li className="list-header">ໝວດ {item.tile_name}</li>
                                         {item.product.slice(0, 10).map((val, index) => (
-                                            <li key={index}><Link to={'/detail-ps?V=' + val.product_uuid}><i className="fa-solid fa-angle-right"></i> {item.tile_name + ' ' + val.qty_baht + '' + val.option_name}</Link></li>
+                                            <li key={index}><Link to={'/detail-ps?V=' + val.product_uuid}><i className="fa-solid fa-angle-right"></i> {item.tile_name + ' ' + val.qty_baht + '' + val.option_name} </Link></li>
                                         ))}
 
                                     </ul>
@@ -153,8 +147,8 @@ function PorductsPage() {
 
 
             <div id="trending-items" className="section-container bg-viengkham">
-                <div className="container ">
-                    <h4 className="section-title clearfix">
+                <div className=" ">
+                    <h4 className="section-title clearfix text-center">
                         <span className="flex-1 text-white">
                           ລວດລາຍ ແລະ ການບໍລິການ ທາງຮ້ານຄຳ ນາງວຽງຄຳ
                         </span>

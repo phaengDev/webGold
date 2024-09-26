@@ -422,6 +422,7 @@ const [show, setShow] = useState(false);
                 data={viewItem}
                 url={img}
             />
+            
 
         </>
     )

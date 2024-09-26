@@ -84,7 +84,7 @@ export default function Footer() {
                                 <div></div>
                                 <abbr title="Phone" className='text-orange'><i class="fa-solid fa-phone fs-14px" /> : </abbr> <a href="tel:+8562095555609">(+856) 20 95 555 609</a> <br />
                                 <abbr title="Phone" className='text-orange'><i class="fa-solid fa-phone fs-14px" /> : </abbr> <a href="tel:+8562094424363">(+856) 020 94 424 363</a> <br />
-                                <abbr title="whatsapp" className='text-orange'> <i class="fa-brands fa-whatsapp  fs-14px" /> : </abbr> <a href="https://wa.me/8562095555609" target="_blank" rel="noopener noreferrer"> 20 95 555 609</a><br />
+                                <abbr title="whatsapp" className='text-orange'> <i class="fa-brands fa-whatsapp  fs-14px" /> : </abbr> <a href="https://wa.me/8562095555609" target="_blank" rel="noopener noreferrer"> WhatsApp</a><br />
                                 <abbr title="Email" className='text-orange'><i class="fa-solid fa-envelope fs-14px" /> : </abbr>
                                  <a href=""> Email</a><br />
                                 <abbr title="Facebook" className='text-orange'><i class="fa-brands fa-facebook-f fs-14px" /> : </abbr>

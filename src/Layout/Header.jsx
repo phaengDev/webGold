@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import { Config, Urlimage } from '../config/connection';
 import numeral from 'numeral';
+import { constant } from 'lodash';
 export default function Header() {
     const api = Config.urlApi;
     const img = Urlimage.url;
@@ -17,15 +18,13 @@ export default function Header() {
     }
 
     const [orderCart, setOrderCart] = useState([]);
-    // const savedCart = JSON.parse(localStorage.getItem('orderCart')) || [];
+    const savedCart = JSON.parse(localStorage.getItem('orderCart')) || [];
 
     useEffect(() => {
-        const savedCart = JSON.parse(localStorage.getItem('orderCart')) || [];
+        // const savedCart = JSON.parse(localStorage.getItem('orderCart')) || [];
         setOrderCart(savedCart);
         fetchTile();
-    }, [orderCart])
-
-
+    }, [])
 
     const [flag, setFlag] = useState(1)
     const chengeLanguage = (index) => {
@@ -146,7 +145,7 @@ export default function Header() {
                                         </div>
 
                                     </li>
-                                    <li><Link to={'/promotion'}>ໂປຣໂມຊັນ</Link></li>
+                                    <li><Link to={'/recomend'}>ສີ້ນຄ້າແນະນຳ</Link></li>
                                     <li><Link to={'/gift'}>ຂອງຂວັນ</Link></li>
                                     <li><Link to={'/news'}>ຂໍ້ມູນຂ່າວສານ</Link></li>
                                     <li className="dropdown">
@@ -156,6 +155,7 @@ export default function Header() {
                                             <span className="arrow top"></span>
                                         </a>
                                         <div className="dropdown-menu">
+                                            <Link className="dropdown-item" to={'/promotion'} ><i class="fa-solid fa-arrow-right" /> ໂປຣໂມຊັນ</Link>
                                             <Link className="dropdown-item" to={'/pattern'} ><i class="fa-solid fa-arrow-right" /> ລວດລາຍ ຮ້ານຄຳ ນາງວຽງຄຳ</Link>
                                             <Link className="dropdown-item" to={'/job'}><i class="fa-solid fa-arrow-right" />  ສະໝັກວຽກ</Link>
                                             <Link className="dropdown-item" to={'/checkbuy'}><i class="fa-solid fa-arrow-right" />  ກວດສອບການສັ່ງຊື້</Link>
@@ -172,14 +172,14 @@ export default function Header() {
                         <div className="header-nav">
                             <ul className="nav justify-content-end">
                                 <li className="dropdown dropdown-hover">
-                                    <a href="#" className="header-cart" data-bs-toggle="dropdown">
+                                    <a href="javascript:;" className="header-cart" data-bs-toggle="dropdown">
                                         <i className="fa fa-shopping-bag"></i>
                                         <span className="total">{orderCart.length}</span>
                                         <span className="arrow top"></span>
                                     </a>
                                     <div className="dropdown-menu dropdown-menu-cart p-0">
                                         <div className="cart-header">
-                                            <h4 className="cart-title">Shopping Bag (1) </h4>
+                                            <h4 className="cart-title">Shopping Bag ({orderCart.length}) </h4>
                                         </div>
                                         <div className="cart-body">
                                             <ul className="cart-item">

@@ -410,6 +410,16 @@ a:not([href]):not([class]):hover {
   color: inherit;
   text-decoration: none;
 }
+
+.hover:hover {
+  color: var(--bs-viengkham);
+}
+.hover:not([href]):not([class]),
+.hover:not([href]):not([class]):hover {
+  color: inherit;
+  text-decoration: none;
+}
+
 code,
 kbd,
 pre,
@@ -28053,4 +28063,68 @@ div.fg{
   color: #111111;
   
   filter: drop-shadow(2px 0px 0px #FD3E3E) drop-shadow(-2px -2px 0px #4DE8F4);
+}
+
+#logo {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+#logo img {
+  width: 90px;
+}
+
+#clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+#project {
+  float: left;
+}
+
+#project span {
+  color: #5D6975;
+  text-align: right;
+  width: 52px;
+  margin-right: 10px;
+  display: inline-block;
+  font-size: 0.8em;
+}
+
+#company {
+  float: right;
+  text-align: right;
+}
+
+#project div,
+#company div {
+  white-space: nowrap;        
+}
+
+
+.pays {
+  position: relative;
+  text-align: center;
+  color: white;
+}
+.top-right {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+
+.card-background {
+  background-image: url('../img/logo/logo.png'); /* Set the background image */
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.10;
+  position: absolute;
+  top: 0px;
+  left: 0;
+  right: 0;
+  bottom: 0px;
+  width: 100%;
+  /* z-index: 1; */
 }

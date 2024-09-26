@@ -62,9 +62,9 @@ function HomePage() {
               <div className="panel panel-inverse rounded-start  rounded-5 rounded-bottom">
                 <div className="panel-heading bg-viengkham text-center border-5 border-gold border-bottom py-2">
                   <h4 className="panel-title fs-18px wrapper">
-                  <div class="bg">ລາຄາຄຳປະຈຳວັນ </div>
-                  <div class="fg">ລາຄາຄຳປະຈຳວັນ </div>
-                    </h4>
+                    <div class="bg">ລາຄາຄຳປະຈຳວັນ </div>
+                    <div class="fg">ລາຄາຄຳປະຈຳວັນ </div>
+                  </h4>
                 </div>
                 <div className="panel-body">
                   <LineChart />
@@ -76,11 +76,12 @@ function HomePage() {
                 <div className="panel panel-inverse rounded-start rounded-5  rounded-bottom" key={index}>
                   <div className="panel-heading bg-viengkham text-center border-5 border-gold border-bottom py-2">
                     <h4 className="panel-title wrapper fs-18px">
-                    <div class="bg"> ລາຄາ {item.typeName} ວັນນີ້ </div>
-                    <div class="fg"> ລາຄາ {item.typeName} ວັນນີ້ </div>
-                      </h4>
+                      <div class="bg"> ລາຄາ {item.typeName} ວັນນີ້ </div>
+                      <div class="fg"> ລາຄາ {item.typeName} ວັນນີ້ </div>
+
+                    </h4>
                   </div>
-                 
+
                   <div className="panel-body">
                     <table className='table'>
                       <tbody className='fs-18px'>
@@ -136,12 +137,11 @@ function HomePage() {
           </div>
         </div>
       </div>
+     
 
-      <div id="promotions" className="section-container bg-viengkham">
-        <div className="container">
-          <h4 className="section-titles"><span role='button' onClick={() => handlePattern()} className='bg-white text-dark'>ພວກເຮົາມີ ລວດລາຍ ຫຼາຍແບບໃຫ້ທ່ານໄດ້ເລືອກ</span> </h4>
-          <SliderPattern />
-        </div>
+      <div id="promotions" className="section-container py-2 bg-viengkham">
+        <h4 className="section-titles mt-2"><span role='button' onClick={() => handlePattern()} className='bg-white text-dark'>ພວກເຮົາມີ ລວດລາຍ ຫຼາຍແບບໃຫ້ທ່ານໄດ້ເລືອກ</span> </h4>
+        <SliderPattern />
       </div>
       <div class="ratio ratio-16x9 h-300px">
         <iframe

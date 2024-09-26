@@ -4,14 +4,17 @@ import { Link, useLocation } from 'react-router-dom';
 import SliderPattern from '../Pattern/sliderPattern';
 import { toast } from 'react-toastify';
 import numeral from 'numeral';
+import Loading from '../../Layout/Loading';
 function ProductDetail() {
     const api = Config.urlApi;
     const img = Urlimage.url;
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
     const psId = searchParams.get('V');
+
     const [data, setData] = useState({});
-    const [dataList, setDataList] = useState([])
+    const [dataList, setDataList] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
     const fetchDatail = async () => {
         try {
             const response = await fetch(api + 'posd/single/' + psId);
@@ -20,6 +23,9 @@ function ProductDetail() {
             setDataList(jsonData.list);
         } catch (error) {
             console.error('Error fetching data:', error);
+        }
+        finally {
+            setIsLoading(false)
         }
     }
 
@@ -38,28 +44,29 @@ function ProductDetail() {
                         ? { ...item, qty_order: item.qty_order + 1 }
                         : item
                 );
-               toast.success('ການເພີ່ມໃສ່ກະຕ່າສຳເລັດ');
-               localStorage.setItem('orderCart', JSON.stringify(updatedCart));
+                toast.success('ການເພີ່ມໃສ່ກະຕ່າສຳເລັດ');
+                localStorage.setItem('orderCart', JSON.stringify(updatedCart));
                 return updatedCart;
             } else {
                 const updatedCart = [...prevOrderCart, {
                     product_id_fk: vals.product_uuid,
-                    code_id:vals.code_id,
+                    type_product:1,
+                    code_id: vals.code_id,
                     qty_order: 1,
-                    qty_baht:vals.qty_baht,
-                    qty_grams:vals.grams,
-                    option_id_fk:vals.option_id_fk,
-                    option_name:vals.option_name,
-                    price_sale:vals.price_sale,
-                    tile_name:vals.tile_name,
-                    tiles_id_fk:vals.tiles_id_fk,
-                    title_image:vals.title_image,
-                    file_image:vals.file_image,
-                    typeName:vals.typeName,
-                    unite_name:vals.unite_name
-                     }];
-               toast.success('ການເພີ່ມໃສ່ກະຕ່າສຳເລັດ');
-               localStorage.setItem('orderCart', JSON.stringify(updatedCart));
+                    qty_baht: vals.qty_baht,
+                    qty_grams: vals.grams,
+                    option_id_fk: vals.option_id_fk,
+                    option_name: vals.option_name,
+                    price_sale: vals.price_sale,
+                    tile_name: vals.tile_name,
+                    tiles_id_fk: vals.tiles_id_fk,
+                    title_image: vals.title_image,
+                    file_image: vals.file_image,
+                    typeName: vals.typeName,
+                    unite_name: vals.unite_name
+                }];
+                toast.success('ການເພີ່ມໃສ່ກະຕ່າສຳເລັດ');
+                localStorage.setItem('orderCart', JSON.stringify(updatedCart));
                 return updatedCart;
             }
         });
@@ -68,8 +75,7 @@ function ProductDetail() {
 
     useEffect(() => {
         fetchDatail();
-        
-    }, [psId,orderCart])
+    }, [psId])
     return (
         <>
 
@@ -82,56 +88,67 @@ function ProductDetail() {
                         <li className="breadcrumb-item active">{data.tile_name} {data.qty_baht + ' ' + data.option_name}</li>
                     </ul>
                     <div className="product">
-                        <div className="product-detail">
-                            <div className="product-image">
-                                <div className="product-thumbnail">
-                                    <ul className="product-thumbnail-list">
-                                        <li className="active  border-red border border-2 rounded-3"><a href="#" data-click="show-main-image" data-url={img + 'pos/' + data.file_image}><img src={img + 'pos/' + data.file_image} alt='' /></a></li>
-                                        {dataList.map((val, index) => (
-                                            <li><Link to={'/detail-ps?V=' + val.product_uuid} data-click="show-main-image" data-url={img + 'pos/' + val.file_image}><img src={img + 'pos/' + val.file_image} alt='' /></Link></li>
-                                        ))}
-                                    </ul>
-                                </div>
-                                <div className="product-main-image" data-id="main-image">
-                                    <img src={`${img}${data.file_image !== '' ? 'pos/' + data.file_image : 'title/' + data.title_image}`} alt />
-                                </div>
+                        {isLoading === true ? (<>
+                            <div className="text-center mt-4">
+                                <Loading
+                                    size="large"
+                                    text="ກຳລັງໂຫລດ..."
+                                    textColor="#f12424" // Set the image source here
+                                />
                             </div>
+                        </>) : (
+                            <div className="product-detail">
 
-
-                            <div className="product-info">
-                                <div className="product-info-header">
-                                    <h1 className="product-title">{data.tile_name} {data.qty_baht + ' ' + data.option_name} </h1>
-                                    <ul className="product-category">
-                                        <li><a href="#">{data.qty_baht + ' ' + data.option_name}</a></li>
-                                        <li>/</li>
-                                        <li><a href="#">{data.grams} Gram</a></li>
-                                    </ul>
-                                </div>
-
-                                <div className="product-warranty">
-                                    <div className="pull-right">{data.porduct_detail}</div>
-                                </div>
-                                <div className="product-info-list">
-                                    <div className="pull-right">{data.title_detail}</div>
-                                </div>
-                                <div className="product-social">
-                                    <ul>
-                                        <li><a href="https://www.facebook.com/profile.php?id=100064645995670" className="facebook" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-title="Facebook" data-bs-placement="top"><i className="fab fa-facebook-f"></i></a></li>
-                                        <li><a href="javascript:;" className="google-plus" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-title="Email" data-bs-placement="top"><i class="fa-solid fa-envelope"/></a></li>
-                                        <li><a href="https://wa.me/8562095555609" target="_blank" className="whatsapp" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-title="Whatsapp" data-bs-placement="top"><i className="fab fa-whatsapp"></i></a></li>
-                                        <li><a href="tel:+8562095555609" className="tumblr" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-title="call" data-bs-placement="top"><i class="fa-solid fa-phone"/></a> </li>
-                                        <li><a href="https://www.tiktok.com/@vkgold888" className="bg-dark" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-title="Tiktok" data-bs-placement="top"><i class="fa-brands fa-tiktok"/></a></li>
-                                    </ul>
-                                </div>
-
-                                <div className="product-purchase-container">
-                                    <div className="product-price">
-                                        <div className="price">{numeral(data.price_sale * data.grams).format('0,00')} ₭</div>
+                                <div className="product-image">
+                                    <div className="product-thumbnail">
+                                        <ul className="product-thumbnail-list">
+                                            {/* <li className="active "><a href="#" data-click="show-main-image" data-url={img + 'pos/' + data.file_image}><img src={img + 'pos/' + data.file_image} alt='' /></a></li> */}
+                                            {dataList.map((val, index) => (
+                                                <li key={index} className={`${val.product_uuid===psId?'active ':''}`}><Link to={'/detail-ps?V=' + val.product_uuid} data-click="show-main-image" data-url={img + 'pos/' + val.file_image} className={`${val.product_uuid===psId?'border border-red':''}`}><img src={`${img}${val.file_image !== '' ? 'pos/' + val.file_image : 'title/' + val.title_image}`} alt='' /></Link></li>
+                                            ))}
+                                        </ul>
                                     </div>
-                                    <a href="javascript:;" onClick={() => handleAddOrder(data)} className="btn btn-dark btn-theme border-3 border-gold rounded-pill btn-lg w-200px">ເພີ່ມໃສ່ກະຕ່າ</a>
+                                    <div className="product-main-image" data-id="main-image">
+                                        <img src={`${img}${data.file_image !== '' ? 'pos/' + data.file_image : 'title/' + data.title_image}`} alt />
+                                    </div>
+                                </div>
+
+
+                                <div className="product-info">
+                                    <div className="product-info-header">
+                                        <h1 className="product-title">{data.tile_name} {data.qty_baht + ' ' + data.option_name} </h1>
+                                        <ul className="product-category">
+                                            <li><a href="#">{data.qty_baht + ' ' + data.option_name}</a></li>
+                                            <li>/</li>
+                                            <li><a href="#">{data.grams} Gram</a></li>
+                                        </ul>
+                                    </div>
+
+                                    <div className="product-warranty">
+                                        <div className="pull-right">{data.porduct_detail}</div>
+                                    </div>
+                                    <div className="product-info-list">
+                                        <div className="pull-right">{data.title_detail}</div>
+                                    </div>
+                                    <div className="product-social">
+                                        <ul>
+                                            <li><a href="https://www.facebook.com/profile.php?id=100064645995670" className="facebook" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-title="Facebook" data-bs-placement="top"><i className="fab fa-facebook-f"></i></a></li>
+                                            <li><a href="javascript:;" className="google-plus" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-title="Email" data-bs-placement="top"><i class="fa-solid fa-envelope" /></a></li>
+                                            <li><a href="https://wa.me/8562095555609" target="_blank" className="whatsapp" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-title="Whatsapp" data-bs-placement="top"><i className="fab fa-whatsapp"></i></a></li>
+                                            <li><a href="tel:+8562095555609" className="tumblr" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-title="call" data-bs-placement="top"><i class="fa-solid fa-phone" /></a> </li>
+                                            <li><a href="https://www.tiktok.com/@vkgold888" className="bg-dark" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-title="Tiktok" data-bs-placement="top"><i class="fa-brands fa-tiktok" /></a></li>
+                                        </ul>
+                                    </div>
+
+                                    <div className="product-purchase-container">
+                                        <div className="product-price">
+                                            <div className="price">{numeral(data.price_sale * data.grams).format('0,00')} ₭</div>
+                                        </div>
+                                        <a href="javascript:;" onClick={() => handleAddOrder(data)} className="btn btn-dark btn-theme border-3 border-gold rounded-pill btn-lg w-200px">ເພີ່ມໃສ່ກະຕ່າ</a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        )}
                     </div>
 
                     <h4 className="mb-15px mt-30px">ໝວດ {data.tile_name} </h4>
@@ -158,7 +175,7 @@ function ProductDetail() {
             </div>
 
             <div className="py-4 bg-viengkham">
-                <div className="container">
+                <div className="">
                     <div className="fs-20px text-center text-white">ການບໍລິການ ລວດລາຍ</div>
                     <SliderPattern />
                 </div>
